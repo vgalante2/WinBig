@@ -1,10 +1,10 @@
 const router = require('express').Router()
 
-// const users = require('./user_routes')
+const users = require('./user_routes')
 
 
 
-// router.use('/users', users)
+router.use('/users', users)
 
 
 
