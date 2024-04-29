@@ -34,7 +34,8 @@ User.init(
             allowNull: false
         },
         balance: {
-            type: DataTypes.DECIMAL
+            type: DataTypes.DECIMAL,
+            defaultValue: 1000.00
         }
     },
     {
