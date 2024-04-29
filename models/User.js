@@ -4,7 +4,7 @@ const { DataTypes, Model } = require('sequelize')
 
 class User extends Model {
     async validatePass(formPassword) {
-        const is_valid = await compare(formPassword, this.dataValues.password)
+        const is_valid = await compare(formPassword, this.password)
         return is_valid
     }
  }
