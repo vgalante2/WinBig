@@ -1,4 +1,3 @@
-// const{Team,Player}=require('./models')
 require('dotenv').config()
 const sequelize = require('./db/client')
 const express = require('express')
@@ -13,7 +12,7 @@ const PORT = process.env.PORT||3333
 app.use(express.json())
 app.use(session(
     {
-        secret: process.env.SESSION_SECRET,
+        secret: 'test',
         store,
         resave: false,
         saveUninitialized: true,
@@ -23,7 +22,7 @@ app.use(session(
 
 app.use('/api', routes)
 
-sequelize.sync({force: false})
+sequelize.sync({force: true})
 .then(()=>{
     app.listen(PORT,() => {
         console.log('Server running on port: ', PORT)
