@@ -15,9 +15,7 @@ async function handleError(err){
 
 router.get('/', async (req, res) => {
   try {
-    const users = await User.findAll({
-      include: [Post, Comment]
-    })
+    const users = await User.findAll()
     return res.json(users)
 
   }
@@ -29,18 +27,12 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   let id = req.params.id
   try {
-    const user = await User.findByPk(id, {
-      include: [Post, Comment]
-    })
+    const user = await User.findByPk(id)
     return res.json(user)
 
   }
   catch (err) {
-    console.log(err)
-    return res.json({
-      message: 'Bad Request',
-      error: err
-    })
+    handleError(err)
   }
 })
 
@@ -52,11 +44,7 @@ router.post('/', async (req, res) => {
     return res.json(user)
 
   } catch (err) {
-    console.log(err)
-    return res.json({
-      message: 'Bad Request',
-      error: err
-    })
+    handleError(err)
   }
 })
 
@@ -80,11 +68,7 @@ router.post('/login', async (req, res) => {
       return res.json({message: 'No User with that name'})
   
     } catch (err) {
-      console.log(err)
-      return res.json({
-        message: 'Bad Request',
-        error: err
-      })
+        handleError(err)
     }
   })
 
@@ -101,19 +85,13 @@ router.put('/:id', async (req, res) => {
     return res.json(user)
 
   } catch (err) {
-    console.log(err)
-    return res.json({
-      message: 'Bad Request',
-      error: err
-    })
+    handleError(err)
   }
 });
 router.delete('/:id', async (req, res) => {
   let id = req.params.id
   try {
-    const user = await User.findByPk(id, {
-      include: [Post, Comment]
-    })
+    const user = await User.findByPk(id)
     await user.destroy()
     return res.json({
       message: `User with ID ${id} removed from Database`
@@ -121,11 +99,7 @@ router.delete('/:id', async (req, res) => {
 
   }
   catch (err) {
-    console.log(err)
-    return res.json({
-      message: 'Bad Request',
-      error: err
-    })
+    handleError(err)
   }
 });
 
