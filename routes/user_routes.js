@@ -50,6 +50,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         let newUser = req.body
+        console.log(newUser)
 
         const user = await User.create(newUser)
         req.session.user_id = user.id
