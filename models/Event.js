@@ -5,18 +5,17 @@ class Event extends Model {}
 
 Event.init(
     {
-        event_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-           primaryKey: true,
-           autoIncrement: true
-        },
         event_name: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        
-      
+        odds: {
+            type: DataTypes.JSON,
+            allowNull: false
+        },
+        outcome: {
+            type: DataTypes.STRING
+        }
     },
     {
         sequelize,

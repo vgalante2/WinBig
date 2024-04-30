@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { hash, compare } = require('bcrypt')
 
 const User = require('../models/User');
+const Bet = require('../models/User');
 
 // The `/api/users` endpoint
 
@@ -116,6 +117,23 @@ router.delete('/auth/delete', async (req, res) => {
         handleError(err,res)
     }
 });
+
+router.post('/auth/bet', async (req, res) => {
+    try {
+        let id = req.session.user_id
+        let relObj = req.body
+        const user = await User.findByPk(id)
+        const bet = await Bet.findByPk(relObj.team_id)
+
+        await user.createBet(bet, { through: 'team_player' })
+
+        return res.json("player added")
+
+    }
+    catch (err) {
+        handleError(res, err)
+    }
+})
 
 router.put('/:id', async (req, res) => {
     try {

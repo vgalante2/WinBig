@@ -2,11 +2,11 @@ const User = require('./User')
 const Bet = require('./Bet')
 const Event = require('./Event')
 
-User.belongsToMany(Bet, { through: 'user_bets' })
-Bet.belongsToMany(User, { through: 'user_bets' })
+User.hasMany(Bet)
+Bet.belongsTo(User)
 
-Event.belongsToMany(Bet, { through: 'bet_events'})
-Bet.belongsToMany(Event, { through: 'bet_events' })
+Event.hasMany(Bet)
+Bet.belongsTo(Event)
 
 module.exports = {
   User: User,
