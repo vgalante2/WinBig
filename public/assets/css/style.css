@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+
 /* RESETS */
 * {
     margin: 0;
@@ -81,4 +83,34 @@ main section {
         width: 50%;
     }
 
+}
+
+.coin-img {
+    height: 200px;
+    padding: 30px;
+}
+
+.dice-img {
+    height: 200px;
+    padding: 30px;
+}
+
+.username {
+font-family: "Jersey 15", sans-serif;
+font-size: 2.5rem
+}
+
+.bets {
+    font-family: "Jersey 15", sans-serif;
+    font-size: 1.6rem 
+}
+
+.balance {
+    font-family: "Jersey 15", sans-serif;
+    font-size: 1.6rem 
+}
+
+.heading {
+    font-family: "Jersey 15", sans-serif;
+    font-size: 3rem 
 }
