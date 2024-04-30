@@ -10,6 +10,7 @@ const app = express()
 const PORT = process.env.PORT||3333
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 app.use(session(
     {
         secret: 'test',
