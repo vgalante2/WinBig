@@ -25,7 +25,15 @@ body {
     padding-left: 10px;
 }
 
-.nav-link:hover {
+#top-menu a:active {
+    color:#ffc422 !important;
+}
+
+a.nav-link {
+    color: aliceblue;
+}
+
+a.nav-link:hover {
     color: #ffc422;
 }
 
@@ -41,16 +49,17 @@ main section {
     padding: 15px;
 }
 
+.bg-success {
+    --bs-bg-opacity: .8;
+    background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+  }
+
 .sidebar-menu {
     width: 20%
 }
 
 #main-content {
     width: 80%;
-}
-
-.forecast-title {
-    text-align: center;
 }
 
 /* RESPONSIVE */
