@@ -2,7 +2,8 @@ const router = require('express').Router();
 const { hash, compare } = require('bcrypt')
 
 const User = require('../models/User');
-const Bet = require('../models/User');
+const Event = require('../models/Event');
+const Bet = require('../models/Bet');
 
 // The `/api/users` endpoint
 
@@ -17,7 +18,9 @@ async function handleError(err, res) {
 router.get('/', async (req, res) => {
     console.log(req.session.user_id)
     try {
-        const users = await User.findAll()
+        const users = await User.findAll({
+            include: Event
+          })
         return res.json(users)
 
     }
@@ -118,22 +121,22 @@ router.delete('/auth/delete', async (req, res) => {
     }
 });
 
-router.post('/auth/bet', async (req, res) => {
-    try {
-        let id = req.session.user_id
-        let relObj = req.body
-        const user = await User.findByPk(id)
-        const bet = await Bet.findByPk(relObj.team_id)
+// router.post('/auth/bet', async (req, res) => {
+//     try {
+//         let id = req.session.user_id
+//         let relObj = req.body
+//         const user = await User.findByPk(id)
+//         const bet = await Bet.findByPk(relObj.team_id)
 
-        await user.createBet(bet, { through: 'team_player' })
+//         await user.createBet(bet, { through: 'team_player' })
 
-        return res.json("player added")
+//         return res.json("player added")
 
-    }
-    catch (err) {
-        handleError(res, err)
-    }
-})
+//     }
+//     catch (err) {
+//         handleError(res, err)
+//     }
+// })
 
 router.put('/:id', async (req, res) => {
     try {

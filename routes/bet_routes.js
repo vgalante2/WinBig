@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 
-const Event = require('../models/Event')
+const Bet = require('../models/Bet')
 
 async function handleError(err, res) {
     console.log(err)
@@ -13,8 +13,8 @@ async function handleError(err, res) {
 
 router.get('/', async (req, res) => {
     try {
-        const events = await Event.findAll()
-        return res.json(events)
+        const bets = await Bet.findAll()
+        return res.json(bets)
 
     }
     catch (err) {
@@ -24,10 +24,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        let newEvent = req.body
+        let newBet = req.body
 
-        const event = await Event.create(newEvent)
-        return res.json(event)
+        const bet = await Bet.create(newBet)
+        return res.json(bet)
 
     } catch (err) {
         handleError(err,res)
@@ -37,9 +37,9 @@ router.put('/:id', async (req, res) => {
     try {
         let update = req.body
         let id = req.params.id
-        const event = await Event.findByPk(id)
-        event.update(update)
-        return res.json(event)
+        const bet = await Bet.findByPk(id)
+        bet.update(update)
+        return res.json(bet)
 
     } catch (err) {
         handleError(err,res)
