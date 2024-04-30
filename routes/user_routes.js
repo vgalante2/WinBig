@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const { hash, compare } = require('bcrypt')
 
-const User = require('../models/User');
+const { User, Event, Bet } = require('../models');
+// const Event = require('../models/Event');
+// const Bet = require('../models/Bet');
 
 // The `/api/users` endpoint
 
@@ -16,24 +18,32 @@ async function handleError(err, res) {
 router.get('/', async (req, res) => {
     console.log(req.session.user_id)
     try {
-        const users = await User.findAll()
+        const users = await User.findAll(
+            {
+                include: { model: Bet },
+            }
+        )
+
         return res.json(users)
 
     }
     catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 })
 
 router.get('/:id', async (req, res) => {
     let id = req.params.id
     try {
-        const user = await User.findByPk(id)
+        const user = await User.findByPk(id,
+            {
+                include: { model: Bet },
+            })
         return res.json(user)
 
     }
     catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 })
 
@@ -46,7 +56,7 @@ router.post('/', async (req, res) => {
         return res.json(user)
 
     } catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 })
 
@@ -70,17 +80,17 @@ router.post('/auth/login', async (req, res) => {
         return res.json({ message: 'No User with that name' })
 
     } catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 })
 
 router.get('/auth/logout', async (req, res) => {
     try {
         req.session.destroy()
-        return res.json({message: 'Logged out'})
+        return res.json({ message: 'Logged out' })
     }
     catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 })
 
@@ -97,7 +107,7 @@ router.put('/auth/update', async (req, res) => {
         return res.json(user)
 
     } catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 })
 
@@ -106,16 +116,33 @@ router.delete('/auth/delete', async (req, res) => {
     try {
         const user = await User.findByPk(id)
         await user.destroy()
-        
+
         return res.json({
             message: `User with ID ${id} removed from Database`
         })
 
     }
     catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 });
+
+// router.post('/auth/bet', async (req, res) => {
+//     try {
+//         let id = req.session.user_id
+//         let relObj = req.body
+//         const user = await User.findByPk(id)
+//         const bet = await Bet.findByPk(relObj.team_id)
+
+//         await user.createBet(bet, { through: 'team_player' })
+
+//         return res.json("player added")
+
+//     }
+//     catch (err) {
+//         handleError(res, err)
+//     }
+// })
 
 router.put('/:id', async (req, res) => {
     try {
@@ -130,7 +157,7 @@ router.put('/:id', async (req, res) => {
         return res.json(user)
 
     } catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 });
 router.delete('/:id', async (req, res) => {
@@ -144,7 +171,7 @@ router.delete('/:id', async (req, res) => {
 
     }
     catch (err) {
-        handleError(err,res)
+        handleError(err, res)
     }
 });
 
