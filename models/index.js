@@ -8,7 +8,15 @@ const Bet = require('./Bet')
 // Event.hasMany(Bet)
 // Bet.hasOne(Event)
 
-Bet.User = Bet.belongsTo(User)
-Bet.Event = Bet.belongsTo(Event)
+// Bet.User = Bet.belongsTo(User)
+// Bet.Event = Bet.belongsTo(Event)
+
+User.hasMany(Bet, {
+    foreignKey: 'user_id'
+  })
+Event.hasMany(Bet, {
+    foreignKey: 'event_id'
+  })
 
 // User.belongsToMany(Event, { through: Bet })
+module.exports = {User,Event,Bet}

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 
-const Event = require('../models/Event')
+const {User,Event,Bet} = require('../models')
 // const User = require('../models/User')
 // const Bet = require('../models/Bet')
 
@@ -39,7 +39,27 @@ router.put('/:id', async (req, res) => {
     try {
         let update = req.body
         let id = req.params.id
-        const event = await Event.findByPk(id)
+        const event = await Event.findByPk(id,
+            {
+                include: { model: Bet },
+            })
+        event.update(update)
+        event.bets.map(async (betObj) => {
+            const bet = await Bet.findByPk(betObj.id)
+        })
+        return res.json(event)
+
+    } catch (err) {
+        handleError(err,res)
+    }
+})
+
+router.put('/resolve/:id', async (req, res) => {
+    try {
+        let update = req.body
+        let event_id = req.params.id
+        const event = await Event.findByPk(event_id)
+        console.log(event)
         event.update(update)
         return res.json(event)
 

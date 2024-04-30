@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 
-const Bet = require('../models/Bet')
+const {User,Event,Bet} = require('../models')
 
 async function handleError(err, res) {
     console.log(err)
@@ -45,5 +45,25 @@ router.put('/:id', async (req, res) => {
         handleError(err,res)
     }
 });
+
+router.post('/makebet', async (req, res) => {
+    try {
+        let betRaw = req.body
+        let id = req.session.user_id 
+        betRaw.user_id = id       
+        const user = await User.findByPk(id)
+        const event = await Event.findByPk(betRaw.event_id)
+        let newBal =parseFloat(user.balance)-betRaw.amount
+        user.update({balance: newBal})
+
+        const bet = await Bet.create(betRaw)
+
+        return res.json(bet)
+
+    }
+    catch (err) {
+        handleError(res, err)
+    }
+})
 
 module.exports = router;
