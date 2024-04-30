@@ -25,6 +25,10 @@ body {
     padding-left: 10px;
 }
 
+.nav-link:hover {
+    color: #ffc422;
+}
+
 main {
     /* padding: 0 3%; */
     flex: 1;
@@ -37,12 +41,12 @@ main section {
     padding: 15px;
 }
 
-.city-search-sidebar {
-    width: 33%
+.sidebar-menu {
+    width: 20%
 }
 
-#forecast-content {
-    width: 67%;
+#main-content {
+    width: 80%;
 }
 
 .forecast-title {
@@ -69,11 +73,11 @@ main section {
         max-width: 50%;
         margin-right: 0;
     } */
-    .city-search-sidebar {
+    .sidebar-menu {
         width: 50%
     }
 
-    #forecast-content {
+    #main-content {
         width: 50%;
     }
 
