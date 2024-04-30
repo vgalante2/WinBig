@@ -46,9 +46,22 @@ router.put('/:id', async (req, res) => {
         event.update(update)
         event.bets.map(async (betObj) => {
             const bet = await Bet.findByPk(betObj.id)
-            bet.update({result: update.outcome})
+            const result =update.outcome
+            let payout = 0
+            if(result ==bet.bet_name){
+                payout = parseFloat(bet.amount)/parseFloat(bet.odds)
+            }
+            await bet.update({result, payout})
             console.log(bet)
-            const user = await User.findByPk(betObj.user_id)
+            if(!bet.resolved){
+                const user = await User.findByPk(betObj.user_id)
+                console.log(user.id)
+                var newBal = parseFloat(user.balance)+parseFloat(bet.payout)
+                await user.update({balance: newBal})
+
+                await bet.update({resolved: true})
+
+            }
             
         })
         return res.json(event)
