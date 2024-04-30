@@ -2,6 +2,7 @@ require('dotenv').config()
 const sequelize = require('./db/client')
 const express = require('express')
 const routes = require('./routes')
+const { engine } = require('express-handlebars')
 const session = require('express-session')
 const SequelizeStore = require("connect-session-sequelize")(session.Store)
 const store = new SequelizeStore({ db: sequelize })
@@ -21,7 +22,10 @@ app.use(session(
     }
 ))
 
-app.use('/api', routes)
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+
+app.use('/', routes)
 
 sequelize.sync({force: false})
 .then(()=>{
