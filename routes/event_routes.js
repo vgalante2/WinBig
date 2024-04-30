@@ -46,6 +46,10 @@ router.put('/:id', async (req, res) => {
         event.update(update)
         event.bets.map(async (betObj) => {
             const bet = await Bet.findByPk(betObj.id)
+            bet.update({result: update.outcome})
+            console.log(bet)
+            const user = await User.findByPk(betObj.user_id)
+            
         })
         return res.json(event)
 
