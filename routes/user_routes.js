@@ -47,7 +47,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/auth/register', async (req, res) => {
     try {
         let newUser = req.body
         console.log(newUser)
@@ -60,6 +60,22 @@ router.post('/', async (req, res) => {
         handleError(err, res)
     }
 })
+
+// // Register user
+// router.post('/auth/register', async (req, res) => {
+//     try {
+//         const data = req.body
+//         // Create a user in the database
+//         await User.create(data)
+//         // await client.query('INSERT INTO users (username, password) VALUES ($1, $2)', [data.username, data.password])
+//         // Store their information in the server, so we have an active record of this user's data.
+//         // This allows us to know when they return, if their data is still active, then they are LOGGED IN (AUTHENTICATED)
+//     } catch (err) {
+//         console.log(err)
+//         // Redirect user back to the register page
+//         res.redirect('/register')
+//     }
+// })
 
 router.post('/auth/login', async (req, res) => {
     try {

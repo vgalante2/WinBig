@@ -22,6 +22,9 @@ app.use(session(
     }
 ))
 
+// Create a GET route for every file in public
+app.use(express.static('public'))
+
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 

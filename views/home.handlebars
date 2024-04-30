@@ -1,21 +1,15 @@
   <main class="d-flex">
-        <aside class="city-search-sidebar bg-dark">
+        <aside class="sidebar-menu bg-dark">
             <div class="d-flex justify-content-center">
-                <h3 class="text-light px-5 pt-5">Login to Your Account</h3>
-            </div>
-            <div>
-                <form class="search-form px-5">
-                    <input class="text-input row mt-3 ms-1 form-control" id="username-input"  type="text" placeholder="Enter your username">
-                    <input class="text-input row mt-3 ms-1 form-control" id="password-input"  type="text" placeholder="Enter your password">
-                    <button class="btn btn-success row mt-3 ms-1 form-control" id="search-btn"  type="submit">Search</button>
-                    <hr />
-                </form>
-                <!-- <hr / class="border-primary-subtle">
-                <section id="search-history"></section> -->
+                <h5 class="text-light px-5 pt-5">Login or Register:</h5>
             </div>
             <hr / class="border-primary-subtle">
+            <div class="navbar-nav px-5">
+                <a class="nav-link text-light" href="/register">New Users: Register Now</a>
+                <a class="nav-link text-light" href="/login">Returning Users: Login</a>
+            </div>
         </aside>
-        <section id="forecast-content" class="d-flex row justify-content-center">
+        <section id="main-content" class="d-flex row justify-content-center">
             <h1 class="pt-3 forecast-title">Are you ready to Win Big?</h1>
                 <section class="d-flex row mt-3" id="forecast-section">
                 </section>
