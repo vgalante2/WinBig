@@ -25,7 +25,6 @@ function roll(){
 }
 
 router.get('/', async (req, res) => {
-    console.log(req.session.user_id)
     try {
         const users = await User.findAll(
             {
@@ -59,7 +58,6 @@ router.get('/:id', async (req, res) => {
 router.post('/auth/register', async (req, res) => {
     try {
         let newUser = req.body
-        console.log(newUser)
 
         const user = await User.create(newUser)
         req.session.user_id = user.id
@@ -73,14 +71,12 @@ router.post('/auth/register', async (req, res) => {
 router.post('/auth/login', async (req, res) => {
     try {
         let input = req.body
-        console.log(input)
         const user = await User.findOne({
             where: {
                 username: input.username,
             }
         })
         if (user) {
-            console.log(user)
             const is_valid = await user.validatePass(input.password)
             if (is_valid) {
                 req.session.user_id = user.id
@@ -109,7 +105,6 @@ router.put('/auth/update', async (req, res) => {
     try {
         let update = req.body
         let id = req.session.user_id
-        console.log(update)
         if (update.password) {
             update.password = await hash(update.password, 10)
         }
@@ -163,7 +158,6 @@ router.put('/:id', async (req, res) => {
     try {
         let newUser = req.body
         let id = req.params.id
-        console.log(newUser)
         if (newUser.password) {
             newUser.password = await hash(newUser.password, 10)
         }

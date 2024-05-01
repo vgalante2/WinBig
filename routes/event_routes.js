@@ -22,6 +22,22 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    try {
+        let id = req.params.id
+        const event = await Event.findByPk(id,
+            {
+                include: { model: Bet },
+            })
+        return res.json(event)
+
+    }
+    catch (err) {
+        handleError(err,res)
+    }
+})
+
+
 router.post('/', async (req, res) => {
     try {
         let newEvent = req.body
@@ -50,10 +66,8 @@ router.put('/:id', async (req, res) => {
                 payout = parseFloat(bet.amount)/parseFloat(bet.odds)
             }
             await bet.update({result, payout})
-            console.log(bet)
             if(!bet.resolved){
                 const user = await User.findByPk(betObj.user_id)
-                console.log(user.id)
                 var newBal = parseFloat(user.balance)+parseFloat(bet.payout)
                 await user.update({balance: newBal})
 
@@ -74,7 +88,6 @@ router.put('/resolve/:id', async (req, res) => {
         let update = req.body
         let event_id = req.params.id
         const event = await Event.findByPk(event_id)
-        console.log(event)
         event.update(update)
         return res.json(event)
 
