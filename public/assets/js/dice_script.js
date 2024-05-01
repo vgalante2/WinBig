@@ -9,7 +9,6 @@ function rollDice(val) {
   }
   async function getEventResult(event){
     event.preventDefault()
-    console.log(this)
     // make new route to return event
     const eventObj = {
       event_name: "diceroll",
@@ -31,7 +30,6 @@ function rollDice(val) {
       body: JSON.stringify(eventObj)
     })
     .then(res=>res.json())
-  console.log(this)
   const event_id = newEvent.id
   const bet_name = document.querySelector('input[name="bet_name"]:checked').value
 const amount = document.getElementById("amount").value
@@ -52,10 +50,23 @@ const amount = document.getElementById("amount").value
         body: JSON.stringify(betObj),
       })
       .then(res=>res.json())
+    console.log(bet)
     const roll = +bet.result
     rollDice(roll)
+    const cardMax = document.getElementById("amount")
+    const sideBalance = document.getElementById("side-balance")
+    let newBalance = parseFloat(cardMax.max)-parseFloat(amount)
+    let payout = +bet.payout
+    if(payout){
+      console.log(cardMax.max)
+      console.log(sideBalance.innerText)
+      newBalance = newBalance + payout
+
+    }
+    cardMax.max = newBalance
+    sideBalance.innerText = newBalance
+    // need to get updated balance and render to balance and for maxbet
   }
-  // get event/bet one event/resolve event/animate die and pay out user
   
   function toggleClasses(die) {
     die.classList.toggle("odd-roll");
