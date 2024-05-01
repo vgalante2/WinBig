@@ -8,7 +8,7 @@
 
 
 /* SIDE BAR ACCOUNT INFO */
-.account-title {
+.user-text {
     font-family: var(--primary-font);
     
 }
@@ -21,7 +21,7 @@ span {
     color: #ea97ff;
 }
 
-.balance-title {
+.balance-text {
     font-family: var(--primary-font);
 }
 
