@@ -1,19 +1,20 @@
-	<link rel="stylesheet" href="/assets/css/coin-styles.css">
-        
-		<main class="d-flex flex-column justify-content-center align-items-center">
-     
+<link rel="stylesheet" href="/assets/css/coin-styles.css">
 
-			<h2 class="text-center text-light pt-3 h1">Place a Bet and Roll the Die!</h2>
-		<div class="coin-container bg-dark p-5"> 
-			<div class="coin" id="coin"> 
-				<img src="/assets/images/coin.gif" alt="Heads"
-				/> 
-			</div>
-			{{>coincard coin}}
-			<button id="toss-button"> 
-				Toss Coin 
-			</button> 
-		</div> 
-		<p class="result"></p>
-		<script src="/assets/js/coin-toss-script.js"></script>
-		</main>
+<main class="d-flex flex-column justify-content-center align-items-center">
+	{{#if isLoggedIn}}
+	{{> loggedInSidebar user}}
+	{{else}}
+	{{> loggedOutSidebar}}
+	{{/if}}
+
+
+	<h2 class="text-center text-light pt-3 h1">Place a Bet and Roll the Die!</h2>
+	<div class="coin-container bg-dark p-5">
+		<div class="coin" id="coin">
+			<img src="/assets/images/coin.gif" alt="Heads" />
+		</div>
+		{{>coincard coin}}
+	</div>
+	<p class="result"></p>
+	<script src="/assets/js/coin-toss-script.js"></script>
+</main>

@@ -4,7 +4,7 @@
             <form data-user="{{user_id}}" id="bet-form" class="bet-form px-3">
                 <input id="amount"class="bet-input row mt-3 ms-1 form-control" name="amount" type="number" step="any" min="2" max="{{balance}}" value="2"placeholder="Enter Bet Amount up to {{balance}}">
                 <input type="hidden" name="odds" value="{{odds}}"> <!-- Hidden input field for odds -->
-                <input type="hidden" name="event_name" value="diceroll">
+                <input type="hidden" name="event_name" value="coinflip">
                 {{#each choices}}
                 <div class="form-check form-check-inline mt-3 ms-1">
                     <input class="form-check-input" type="radio" id="{{this}}" name="bet_name" value="{{this}}">
