@@ -6,11 +6,22 @@
     --primary-font: "Jersey 15", sans-serif;
 }
 
+/* .carousel-control-prev {
+    height: 20% !important;
+} */
+
+.logged-out {
+    font-family: var(--primary-font);
+}
 
 /* SIDE BAR ACCOUNT INFO */
-.account-title {
+.user-text {
     font-family: var(--primary-font);
     
+}
+
+.home-heading {
+    font-family: var(--primary-font);
 }
 
 span {
@@ -21,7 +32,7 @@ span {
     color: #ea97ff;
 }
 
-.balance-title {
+.balance-text {
     font-family: var(--primary-font);
 }
 
@@ -122,6 +133,12 @@ main section {
     font-family: var(--primary-font);
     color: rgb(86, 156, 255);
 }
+
+/* USER PAGE UPDATE */
+
+#user-background { 
+	background: radial-gradient(circle, rgb(244, 131, 179) 0%, rgba(148,187,233,1) 100%);
+} 
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
