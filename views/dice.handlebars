@@ -1,13 +1,16 @@
 <link rel="stylesheet" href="/assets/css/dice-styles.css">
-    <main class=" d-flex ">
+    <main class="d-flex">
          {{#if isLoggedIn}}
         {{> loggedInSidebar die}}
     {{else}}
         {{> loggedOutSidebar}}
     {{/if}}
-    <section class=" d-flex w-75 row justify-content-center align-items-center mb-5">
+    <section class="row justify-content-center">
+		<h2 class="text-center text-light pt-5 pb-5 h1">Place a Bet and Roll the Die!</h2>
+		<div class="coin-container bg-dark mb-5 pb-5"> 
+    {{!-- <section class=" d-flex w-75 row justify-content-center align-items-center mb-5"> --}}
         {{!-- <div class="d-flex align-items-center justify-content-center flex-column"> --}}
-        <h2 class="text-center text-light p-5">Place a Bet and Roll the Die!</h2>
+        {{!-- <h2 class="text-center text-light p-5">Place a Bet and Roll the Die!</h2> --}}
         <div class="dice">
         <ol class="die-list even-roll" data-roll="1" id="die-1">
             <li class="die-item" data-side="1">
@@ -80,10 +83,10 @@
             </li>
         </ol> --}}
         </div>
+        {{>diecard die}}
     </div>
 
     {{!-- <button data-event="{{die.event_id}}" data-user="{{die.user_id}}"type="button" id="roll-button">Roll Dice</button> --}}
-    {{>diecard die}}
     <script src="/assets/js/dice_script.js"></script>
     </section>
     </main>
