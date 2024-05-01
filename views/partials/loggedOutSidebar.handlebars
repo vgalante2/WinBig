@@ -1,10 +1,16 @@
-        <aside class="sidebar-menu bg-dark" data-bs-theme="dark">
+
+        <aside class="sidebar-menu bg-dark">
             <div class="d-flex justify-content-center">
-                <h5 class="text-light px-5 pt-5">Login or Register:</h5>
+                <h5 class="text-light pt-5">Login or Register:</h5>
             </div>
-            <hr / class="border-light">
-            <div class="navbar-nav px-5 ms-2">
-                <a class="nav-link" href="/register">New Users: Register Now</a>
-                <a class="nav-link" href="/login">Returning Users: Login</a>
+            {{!-- <hr / class="border-light"> --}}
+            <div class="px-5 ms-1">
+                <form action="/api/users/auth/login" method="POST"class="register-form">
+                    <input class="text-input row mt-3 form-control" name="username"   type="text" placeholder="Enter your username">
+                    <input class="text-input row mt-3 form-control" name="password"   type="text" placeholder="Enter your password">
+                    <button class="btn btn-success row mt-3 form-control" id="search-btn"  type="submit">Login</button>
+                </form>
+                <a class="nav-link pt-3 text-warning" href="/register">New Users: Register Here</a>
+                {{!-- <a class="nav-link" href="/login">Returning Users: Login</a> --}}
             </div>
         </aside>
