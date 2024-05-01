@@ -7,6 +7,24 @@
 }
 
 
+/* SIDE BAR ACCOUNT INFO */
+.account-title {
+    font-family: var(--primary-font);
+    
+}
+
+span {
+    font-family: var(--primary-font);
+}
+
+.span-user {
+    color: #ea97ff;
+}
+
+.balance-title {
+    font-family: var(--primary-font);
+}
+
 /* RESETS */
 * {
     margin: 0;
@@ -102,7 +120,7 @@ main section {
 
 .question-heading {
     font-family: var(--primary-font);
-    color: rgb(187, 136, 248);
+    color: rgb(86, 156, 255);
 }
 
 /* RESPONSIVE */
