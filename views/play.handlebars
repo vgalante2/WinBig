@@ -1,10 +1,59 @@
-<main class="d-flex">
+<main class=" bg-light d-flex">
     {{#if isLoggedIn}}
         {{> loggedInSidebar coin}}
     {{else}}
         {{> loggedOutSidebar}}
     {{/if}}
+    
+    <div class=" d-flex flex-column justify-content-evenly container text-center">
+        
+            <H1 class=" heading display-2 text-center pt-5 pb-5">Welcome, <span class="user">{{coin.username}}</span></H1>
+            <div class=" d-flex flex-column align-items-center justify-content-around gap-5">
+                <h3 class="question-heading display-4">What are you playing today?</h3>
+                
+                {{!-- <div class="bg-secondary-subtle rounded  w-25 d-flex flex-column justify-content-center"> 
+                    <p class="username">{{coin.username}}</p>
+                </div> --}}
+                <div class="d-flex w-100 justify-content-around ">
+    <div id="coin" class="row border border-3 border-success-subtle rounded p-5 align-items-center">
+        <div class="col-12 text-center">
+            <h1 class="game-heading">Coin Toss</h1>
+            <img class="coin-img" src="/assets/images/coin.gif">
+        </div>
+    </div>
+    <div id="dice" class="row border border-3 border-success-subtle rounded p-5 align-items-center">
+        <div class="col-12 text-center">
+            <h1 class="game-heading" >Dice</h1>
+            <img class="dice-img" src="/assets/images/dice.gif">
+        </div>
+    </div>
+            </div>
+            </div>
+       
+    </div>
 
+    <script>
+        const diceBtn = document.querySelector("#dice");
+        const coinBtn = document.querySelector("#coin");
+
+
+
+        diceBtn.addEventListener("click", function(event) {
+          window.location.href = "/dice";
+        })
+
+        coinBtn.addEventListener("click", function() {
+            window.location.href = "/coin-toss";
+        })
+
+
+    </script>
+</main>
+
+
+
+{{!-- <main class="d-flex">
+ 
     <section id="main-content" class="d-flex row justify-content-center">
         <h1 class="pt-3 text-center">Play a Game And Win Now, {{coin.username}}</h1>
         <section class="d-flex row mt-3">
@@ -14,4 +63,6 @@
             {{>card die}}
         </section>
     </section>
-</main>
+</main> --}}
+
+

@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+
+/* VARS */
+
+:root {
+    --primary-font: "Jersey 15", sans-serif;
+}
+
+
 /* RESETS */
 * {
     margin: 0;
@@ -27,6 +36,10 @@ body {
 
 .nav-link:hover {
     color: #ffc422;
+}
+
+.brand {
+    font-family: var(--primary-font);
 }
 
 main {
@@ -81,4 +94,50 @@ main section {
         width: 50%;
     }
 
+}
+
+.coin-img {
+    max-height: 200px;
+   width: auto;
+}
+.dice-img {
+    max-height: 200px;
+    width: auto;
+   
+}
+.heading {
+    font-family: var(--primary-font);
+    
+}
+
+.user {
+    color: #2ebf6b;
+    font-family: var(--primary-font);
+}
+
+.game-heading {
+    font-family: var(--primary-font);
+}
+
+
+#coin {
+    transition: transform 0.3s ease;
+}
+
+#coin:hover {
+    transform: scale(1.1);
+}
+
+#dice {
+    transition: transform 0.3s ease;
+}
+
+#dice:hover {
+    transform: scale(1.1);
+}
+
+.question-heading {
+    font-family: var(--primary-font);
+    color: rgb(187, 136, 248);
+    
 }
