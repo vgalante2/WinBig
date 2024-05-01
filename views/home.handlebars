@@ -1,5 +1,5 @@
   <main class="d-flex">
-        <aside class="sidebar-menu bg-dark">
+        {{!-- <aside class="sidebar-menu bg-dark">
             <div class="d-flex justify-content-center">
                 <h5 class="text-light px-5 pt-5">Login or Register:</h5>
             </div>
@@ -8,7 +8,8 @@
                 <a class="nav-link text-light" href="/register">New Users: Register Now</a>
                 <a class="nav-link text-light" href="/login">Returning Users: Login</a>
             </div>
-        </aside>
+        </aside> --}}
+        {{>loggedOutSidebar}}
         <section id="main-content" class="d-flex row justify-content-center">
             <h1 class="pt-3 forecast-title">Are you ready to Win Big?</h1>
                 <section class="d-flex row mt-3" id="forecast-section">
