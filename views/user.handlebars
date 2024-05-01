@@ -1,4 +1,4 @@
-    <main>
+    <main id="user-background">
         <h2 class="text-center pt-5">User Account Information</h2>
         <section id="user-quote">
             <div class="card">
@@ -19,8 +19,11 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
+                        <div class="card-header">
+                            Account
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">Account: {{username}}</h5>
+                            <h5 class="card-title">Username: {{username}}</h5>
                             <p class="card-text">Credit Balance: <span class="text-success">{{balance}}</span></p>
                             <a href="#" class="btn btn-primary">Update Password</a>
                             <a href="#" class="btn btn-danger">Delete Account</a>
@@ -29,6 +32,9 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="card">
+                        <div class="card-header">
+                            Bets & Gaming
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">Recent Bet History: {{username}}</h5>
                             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
