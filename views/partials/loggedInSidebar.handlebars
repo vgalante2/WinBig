@@ -3,8 +3,10 @@
    
     <aside class="sidebar-menu bg-dark" data-bs-theme="dark">
         <div class="justify-content-center ms-2">
-            <h5 class="account-title display-6 text-light px-5 pt-5">Account: <span class="span-user" >{{username}}</span> </h5>
-            <p class="balance-title h2 text-light px-5 pt-1">Credit Balance: $<span class="text-success">{{balance}}</p>
+
+            <h5 class="text-light px-5 pt-5">Account: {{username}} </h5>
+            <p class="text-light px-5 pt-1">Credit Balance: <span id="side-balance" class="text-success">{{balance}}</p>
+
         </div>
         {{!-- <div>
             <form class="bet-form px-5">
