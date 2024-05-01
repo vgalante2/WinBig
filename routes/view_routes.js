@@ -90,9 +90,39 @@ router.get('/coin-toss', (req, res) => {
     res.render('coin-toss')
 })
 
-router.get('/dice', (req, res) => {
+router.get('/dice', async (req, res) => {
+    const auth = isAuth(req, res)
+    let userObj = {
+        isLoggedIn: false
+    }
+    if (auth) {
+        const user = await User.findByPk(req.session.user_id)
+        const die = await Event.create({
+            event_name: "diceroll",
+            odds: {
+                1: 0.1666666,
+                2: 0.1666666,
+                3: 0.1666666,
+                4: 0.1666666,
+                5: 0.1666666,
+                6: 0.1666666,
+            }
+        })
+        userObj = {
+            isLoggedIn: true,
+            die: {
+                username: user.username,
+                balance: user.balance,
+                event_id: die.id,
+                choices: Object.keys(die.odds),
+                odds: die.odds[1]
+            },
+
+        }
+
+    }
     
-    res.render('dice')
+    res.render('dice', userObj)
 })
 
 
