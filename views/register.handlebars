@@ -4,11 +4,12 @@
             <H1 class="text-center pt-5">Create an Account to Start Winning!</H1>
             <div class="column col-md-6">
                 <h3 class="px-5 pt-5">Register Your WinBig Account</h3>
-                <form class="register-form px-5">
-                    <input class="text-input row mt-3 ms-1 form-control" id="username-input"  type="text" placeholder="Enter your username">
-                    <input class="text-input row mt-3 ms-1 form-control" id="email-input"  type="text" placeholder="Enter your email address">
-                    <input class="text-input row mt-3 ms-1 form-control" id="password-input"  type="text" placeholder="Enter your password">
-                    <button class="btn btn-success row mt-3 ms-1 form-control" id="search-btn"  type="submit">Register</button>
+          <form action="/api/users/auth/register" method="POST"class="search-form px-5" id="register">
+                    <input class="text-input row mt-3 ms-1 form-control" name="username"  type="text" placeholder="Enter your username">
+                    <input class="text-input row mt-3 ms-1 form-control" name="email"  type="text" placeholder="Enter your email">
+                    <input class="text-input row mt-3 ms-1 form-control" name="password"  type="text" placeholder="Enter your password">
+                    <button class="btn btn-success row mt-3 ms-1 form-control" id="search-btn"  type="submit">Search</button>
+                    <hr />
                 </form>
             </div>
         </div>

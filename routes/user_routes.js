@@ -54,28 +54,12 @@ router.post('/auth/register', async (req, res) => {
 
         const user = await User.create(newUser)
         req.session.user_id = user.id
-        return res.json(user)
+        return res.redirect('/play')
 
     } catch (err) {
         handleError(err, res)
     }
 })
-
-// // Register user
-// router.post('/auth/register', async (req, res) => {
-//     try {
-//         const data = req.body
-//         // Create a user in the database
-//         await User.create(data)
-//         // await client.query('INSERT INTO users (username, password) VALUES ($1, $2)', [data.username, data.password])
-//         // Store their information in the server, so we have an active record of this user's data.
-//         // This allows us to know when they return, if their data is still active, then they are LOGGED IN (AUTHENTICATED)
-//     } catch (err) {
-//         console.log(err)
-//         // Redirect user back to the register page
-//         res.redirect('/register')
-//     }
-// })
 
 router.post('/auth/login', async (req, res) => {
     try {
@@ -87,14 +71,15 @@ router.post('/auth/login', async (req, res) => {
             }
         })
         if (user) {
+            console.log(user)
             const is_valid = await user.validatePass(input.password)
             if (is_valid) {
                 req.session.user_id = user.id
-                return res.json({ message: 'Passwords Match. User session created' })
+                return res.redirect('/play')
             }
-            return res.json({ message: 'Incorrect Password' })
+            return res.redirect('/login')
         }
-        return res.json({ message: 'No User with that name' })
+        return res.redirect('/register')
 
     } catch (err) {
         handleError(err, res)
@@ -104,7 +89,7 @@ router.post('/auth/login', async (req, res) => {
 router.get('/auth/logout', async (req, res) => {
     try {
         req.session.destroy()
-        return res.json({ message: 'Logged out' })
+        return res.redirect('/logout')
     }
     catch (err) {
         handleError(err, res)

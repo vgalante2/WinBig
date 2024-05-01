@@ -10,6 +10,10 @@ async function handleError(err, res) {
         error: err
     })
 }
+async function resolveBet(bet){
+    
+
+}
 
 router.get('/', async (req, res) => {
     try {
@@ -57,8 +61,8 @@ router.post('/makebet', async (req, res) => {
         user.update({balance: newBal})
 
         const bet = await Bet.create(betRaw)
-
-        return res.json(bet)
+        await event.resolveBets({outcome: 'tails'})
+        return res.redirect('../../play')
 
     }
     catch (err) {
