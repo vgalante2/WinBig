@@ -1,0 +1,42 @@
+    <main>
+        <h2 class="text-center pt-5">User Account Information</h2>
+        <section id="user-quote">
+            <div class="card">
+                <div class="card-header">
+                    Motivational Quote
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0" id="quoteDisplay">
+                    <p>Click the button below to generate a new motivational quote about winning</p>                    {{!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> --}}
+                    </blockquote>
+                    <div class="pt-3">
+                    <button class="btn btn-success" onclick="newQuote()">Generate Quote</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="user-info-display">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Account: {{username}}</h5>
+                            <p class="card-text">Credit Balance: <span class="text-success">{{balance}}</span></p>
+                            <a href="#" class="btn btn-primary">Update Password</a>
+                            <a href="#" class="btn btn-danger">Delete Account</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Recent Bet History: {{username}}</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="/play" class="btn btn-success">Play More Games</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="/assets/js/quotes.js"></script>
