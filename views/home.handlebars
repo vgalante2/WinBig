@@ -1,18 +1,29 @@
   <main class="d-flex">
-        {{!-- <aside class="sidebar-menu bg-dark">
-            <div class="d-flex justify-content-center">
-                <h5 class="text-light px-5 pt-5">Login or Register:</h5>
-            </div>
-            <hr / class="border-primary-subtle">
-            <div class="navbar-nav px-5">
-                <a class="nav-link text-light" href="/register">New Users: Register Now</a>
-                <a class="nav-link text-light" href="/login">Returning Users: Login</a>
-            </div>
-        </aside> --}}
         {{>loggedOutSidebar}}
         <section id="main-content" class="d-flex row justify-content-center">
-            <h1 class="pt-3 forecast-title">Are you ready to Win Big?</h1>
-                <section class="d-flex row mt-3" id="forecast-section">
+            <h1 class="pt-3 text-center">Are you ready to Win Big?</h1>
+                <section class="d-flex row mt-3">
+                    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="/assets/images/dice-carousel-image.png" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/assets/images/coin-carousel-image.png" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/assets/images/scratchoff-carousel-image.png" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </section>
         </section>
     </main>
