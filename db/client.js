@@ -12,7 +12,8 @@ const client = is_prod ? new Sequelize(process.env.DATABASE_URL,
         'pass',
         {
             host: 'localhost',
-            dialect: 'postgres'
+            dialect: 'postgres',
+            logging: false
         }
     )
 

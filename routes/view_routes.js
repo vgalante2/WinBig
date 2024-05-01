@@ -25,12 +25,42 @@ router.get('/play', async (req, res) => {
     }
     if (auth) {
         const user = await User.findByPk(req.session.user_id)
+        const coin = await Event.create({
+            event_name: "coinflip",
+            odds: {
+                heads: 0.50,
+                tails: 0.50
+            }
+
+        })
+        const die = await Event.create({
+            event_name: "diceroll",
+            odds: {
+                1: 0.1666666,
+                2: 0.1666666,
+                3: 0.1666666,
+                4: 0.1666666,
+                5: 0.1666666,
+                6: 0.1666666,
+            }
+        })
         userObj = {
             isLoggedIn: true,
-            vars: {
+            coin: {
                 username: user.username,
-                balance: user.balance
-            }
+                balance: user.balance,
+                event_id: coin.id,
+                choices: Object.keys(coin.odds),
+                odds: coin.odds.heads
+            },
+            die: {
+                username: user.username,
+                balance: user.balance,
+                event_id: die.id,
+                choices: Object.keys(die.odds),
+                odds: die.odds[1]
+            },
+
         }
 
     }
