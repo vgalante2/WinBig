@@ -81,6 +81,11 @@ router.get('/logout', (req, res) => {
     res.render('logout')
 })
 
+router.get('/user', (req, res) => {
+
+    res.render('user')
+})
+
 router.get('/coin-toss', (req, res) => {
     res.render('coin-toss')
 })
