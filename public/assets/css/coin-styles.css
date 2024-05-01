@@ -1,30 +1,11 @@
-* { 
-	margin: 0; 
-	padding: 0; 
-	box-sizing: border-box; 
-} 
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+
 
 body { 
-	font-family: "Arial", sans-serif; 
-	background: linear-gradient( 
-		135deg, 
-		#f4fb8f, 
-		#ff6b6b
-	); 
-	display: flex; 
-	justify-content: center; 
-	align-items: center; 
-	height: 100vh; 
-	margin: 0; 
+	background: radial-gradient(circle, rgb(244, 131, 179) 0%, rgba(148,187,233,1) 100%);
 } 
 
-.coin-container { 
-	background-color: rgba( 
-		255, 
-		255, 
-		255, 
-		0.9
-	); 
+.coin-container {
 	border-radius: 20px; 
 	box-shadow: 0 10px 20px
 		rgba(0, 0, 0, 0.3); 
@@ -37,8 +18,7 @@ body {
 } 
 
 h1 { 
-	color: #1ca00a; 
-	font-size: 2.5rem; 
+	font-family: "Jersey 15", sans-serif;
 	margin: 0 0 1rem; 
 	text-shadow: 2px 2px 4px
 		rgba(0, 0, 0, 0.2); 
@@ -134,10 +114,4 @@ button:hover {
 
 .coin-container:hover { 
 	transform: scale(1.02); 
-} 
-
-h2 { 
-	color: #333; 
-	font-size: 24px; 
-	margin: 10px 0; 
 } 

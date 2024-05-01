@@ -1,7 +1,7 @@
 <div class="container text-center">
     <div class="row justify-content-center">
         <div class="column col-md-6">
-            <form data-user="{{user_id}}" id="bet-form" class="bet-form px-5">
+            <form data-user="{{user_id}}" id="bet-form" class="bet-form px-3">
                 <input id="amount"class="bet-input row mt-3 ms-1 form-control" name="amount" type="number" step="any" min="2" max="{{balance}}" value="2"placeholder="Enter Bet Amount up to {{balance}}">
                 <input type="hidden" name="odds" value="{{odds}}"> <!-- Hidden input field for odds -->
                 <input type="hidden" name="event_name" value="diceroll">
@@ -11,7 +11,7 @@
                     <label class="form-check-label" for="{{this}}">{{this}}</label>
                 </div>
                 {{/each}}
-                <button class="btn btn-success row mt-3 ms-1 form-control" id="bet-btn" type="submit">Place Bet</button>
+                <button class="btn btn-success row mt-3 form-control" id="bet-btn" type="submit">Place Bet</button>
             </form>
         </div>
     </div>
