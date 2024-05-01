@@ -9,10 +9,19 @@ const { User, Event, Bet } = require('../models');
 
 async function handleError(err, res) {
     console.log(err)
-    return res.json({
-        message: 'Bad Request',
-        error: err
-    })
+    return res.redirect('/play')
+}
+
+function flip(){
+    if(Math.floor(Math.random()*2)){
+        return {outcome: 'heads'}
+    }
+    return {outcome: 'tails'}
+}
+
+function roll(){
+    return {outcome: Math.floor(Math.random()*6)+1}
+    
 }
 
 router.get('/', async (req, res) => {
@@ -129,22 +138,26 @@ router.delete('/auth/delete', async (req, res) => {
     }
 });
 
-// router.post('/auth/bet', async (req, res) => {
-//     try {
-//         let id = req.session.user_id
-//         let relObj = req.body
-//         const user = await User.findByPk(id)
-//         const bet = await Bet.findByPk(relObj.team_id)
+router.post('/auth/bet', async (req, res) => {
+    try {
+        let betRaw = req.body
+        let id = req.session.user_id 
+        betRaw.user_id = id       
+        const user = await User.findByPk(id)
+        const event = await Event.findByPk(betRaw.event_id)
+        let newBal =parseFloat(user.balance)-betRaw.amount
+        user.update({balance: newBal})
+        await Bet.create(betRaw)
+        const outcome = event.event_name=='coinflip'?flip():roll()
+        await event.resolveBets(outcome)
+        return res.redirect('/play')
 
-//         await user.createBet(bet, { through: 'team_player' })
-
-//         return res.json("player added")
-
-//     }
-//     catch (err) {
-//         handleError(res, err)
-//     }
-// })
+    }
+    catch (err) {
+        console.log(err)
+        handleError(err, res)
+    }
+})
 
 router.put('/:id', async (req, res) => {
     try {
