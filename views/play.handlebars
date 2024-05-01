@@ -1,17 +1,48 @@
-<main class="d-flex">
+<main class=" bg-light d-flex">
     {{#if isLoggedIn}}
         {{> loggedInSidebar coin}}
     {{else}}
         {{> loggedOutSidebar}}
     {{/if}}
-
     <section id="main-content" class="d-flex row justify-content-center">
-        <h1 class="pt-3 text-center">Play a Game And Win Now, {{coin.username}}</h1>
-        <section class="d-flex row mt-3">
-            {{>card coin}}
-        </section>
-        <section class="d-flex row mt-3">
-            {{>card die}}
-        </section>
+        <div class=" d-flex flex-column justify-content-evenly container text-center">
+            <H1 class=" heading display-2 text-center pt-5 text-dark">Welcome, <span class="user">{{coin.username}}</span></H1>
+            <div class=" d-flex flex-column align-items-center justify-content-around gap-5">
+                <h3 class="question-heading display-4">What are you playing today?</h3>
+                <div class="d-flex w-100 justify-content-around pb-5">
+                    <div id="coin" class="row border border-3 border-success-subtle rounded p-5 align-items-center bg-dark">
+                        <div class="col-12 text-center">
+                            <h1 class="game-heading text-light">Coin Toss</h1>
+                            <img class="coin-img" src="/assets/images/coin.gif">
+                        </div>
+                    </div>
+                    <div id="dice" class="row border border-3 border-success-subtle rounded p-5 align-items-center bg-dark">
+                        <div class="col-12 text-center">
+                            <h1 class="game-heading text-light" >Dice</h1>
+                            <img class="dice-img" src="/assets/images/dice.gif">
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
     </section>
+
+    <script>
+        const diceBtn = document.querySelector("#dice");
+        const coinBtn = document.querySelector("#coin");
+
+
+
+        diceBtn.addEventListener("click", function(event) {
+          window.location.href = "/dice";
+        })
+
+        coinBtn.addEventListener("click", function() {
+            window.location.href = "/coin-toss";
+        })
+
+
+    </script>
 </main>
+
+
