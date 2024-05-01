@@ -52,7 +52,7 @@
             <span class="dot"></span>
             </li>
         </ol>
-        <ol class="die-list odd-roll" data-roll="1" id="die-2">
+        {{!-- <ol class="die-list odd-roll" data-roll="1" id="die-2">
             <li class="die-item" data-side="1">
             <span class="dot"></span>
             </li>
@@ -86,8 +86,9 @@
             <span class="dot"></span>
             <span class="dot"></span>
             </li>
-        </ol>
+        </ol> --}}
         </div>
     </section>
-    <button type="button" id="roll-button">Roll Dice</button>
+    {{!-- <button data-event="{{die.event_id}}" data-user="{{die.user_id}}"type="button" id="roll-button">Roll Dice</button> --}}
+    {{>diecard die}}
     <script src="/assets/js/dice_script.js"></script>

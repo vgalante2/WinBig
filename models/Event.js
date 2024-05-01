@@ -13,8 +13,12 @@ class Event extends Model {
                 {
                     include: { model: Bet },
                 })
-            event.update(update)
-            if(event.bets.length){
+            await event.update(update)
+            if(!event.bets.length){
+                return false
+            }
+            
+            return new Promise((resolve, reject) => {
                 event.bets.map(async (betObj) => {
                     const bet = await Bet.findByPk(betObj.id)
                     const result =update.outcome
@@ -23,18 +27,16 @@ class Event extends Model {
                         payout = parseFloat(bet.amount)/parseFloat(bet.odds)
                     }
                     await bet.update({result, payout})
-                    console.log(bet)
                     if(!bet.resolved){
                         const user = await User.findByPk(betObj.user_id)
-                        console.log(user.id)
                         var newBal = parseFloat(user.balance)+parseFloat(bet.payout)
                         await user.update({balance: newBal})
         
                         await bet.update({resolved: true})
-                    }
+                        resolve()
+                    } else resolve()
                 })
-            }
-            return true
+            })
     
         } catch (err) {
             console.log(err)

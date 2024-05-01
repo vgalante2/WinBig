@@ -10,9 +10,16 @@ async function handleError(err, res) {
         error: err
     })
 }
-async function resolveBet(bet){
-    
+function flip(){
+    if(Math.floor(Math.random()*2)){
+        return {outcome: 'heads'}
+    }
+    return {outcome: 'tails'}
+}
 
+function roll(){
+    return {outcome: `${Math.floor(Math.random()*6)+1}`}
+    
 }
 
 router.get('/', async (req, res) => {
@@ -63,6 +70,26 @@ router.post('/makebet', async (req, res) => {
         const bet = await Bet.create(betRaw)
         await event.resolveBets({outcome: 'tails'})
         return res.redirect('../../play')
+
+    }
+    catch (err) {
+        handleError(res, err)
+    }
+})
+router.post('/bet', async (req, res) => {
+    try {
+        let betRaw = req.body
+        let id = req.session.user_id 
+        betRaw.user_id = id       
+        const user = await User.findByPk(id)
+        let event = await Event.findByPk(betRaw.event_id)
+        let newBal =parseFloat(user.balance)-betRaw.amount
+        user.update({balance: newBal})
+        const bet = await Bet.create(betRaw)
+        const outcome = roll()
+        await event.resolveBets(outcome)
+        const resolved = await Bet.findByPk(bet.id)
+        return res.json(resolved)
 
     }
     catch (err) {
