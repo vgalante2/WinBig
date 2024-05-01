@@ -6,11 +6,22 @@
     --primary-font: "Jersey 15", sans-serif;
 }
 
+/* .carousel-control-prev {
+    height: 20% !important;
+} */
+
+.logged-out {
+    font-family: var(--primary-font);
+}
 
 /* SIDE BAR ACCOUNT INFO */
 .user-text {
     font-family: var(--primary-font);
     
+}
+
+.home-heading {
+    font-family: var(--primary-font);
 }
 
 span {
