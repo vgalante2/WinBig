@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="/assets/css/dice-styles.css">   
+<link rel="stylesheet" href="/assets/css/dice-styles.css">
     <main class=" d-flex ">
          {{#if isLoggedIn}}
         {{> loggedInSidebar coin}}
     {{else}}
         {{> loggedOutSidebar}}
     {{/if}}
-    <section class=" d-flex w-75 row justify-content-center align-items-center">
+    <section class=" d-flex w-75 row justify-content-center align-items-center mb-5">
         {{!-- <div class="d-flex align-items-center justify-content-center flex-column"> --}}
         <h2 class="text-center text-light p-5">Place a Bet and Roll the Die!</h2>
         <div class="dice">
