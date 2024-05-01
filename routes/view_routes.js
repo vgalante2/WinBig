@@ -165,8 +165,27 @@ router.get('/coin-toss', async (req, res) => {
     }
     if (auth) {
         userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+        const user = await getUserObj(req.session.user_id)
+        userObj.user = user
+
+        const coin = await Event.create({
+            event_name: "coinflip",
+            odds: {
+                heads: 0.50,
+                tails: 0.50
+            }
+        })
+
+        userObj.coin = {
+            user_id: user.user_id,
+            username: user.username,
+            balance: user.balance,
+            event_id: coin.id,
+            choices: Object.keys(coin.odds),
+            odds: coin.odds.heads
+        }
     }
+    console.log(userObj)
     res.render('coin-toss', userObj)
 })
 
