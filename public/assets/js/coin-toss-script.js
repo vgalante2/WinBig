@@ -63,4 +63,16 @@ const amount = document.getElementById("amount").value
 			tossBtn.disabled = false; 
 		}, 500); 
 	}, 1000); 
+	const cardMax = document.getElementById("amount")
+    const sideBalance = document.getElementById("side-balance")
+    let newBalance = parseFloat(cardMax.max)-parseFloat(amount)
+    let payout = +bet.payout
+    if(payout){
+      console.log(cardMax.max)
+      console.log(sideBalance.innerText)
+      newBalance = newBalance + payout
+
+    }
+    cardMax.max = newBalance
+    sideBalance.innerText = newBalance
 }
