@@ -91,6 +91,7 @@ router.get('/coin-toss', (req, res) => {
 })
 
 router.get('/dice', (req, res) => {
+    
     res.render('dice')
 })
 
