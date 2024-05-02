@@ -273,4 +273,18 @@ router.post('/free', async (req, res) => {
     }
 });
 
+router.get('/wheel', async (req, res) => {
+    const auth = isAuth(req, res)
+    let userObj = {
+        isLoggedIn: false
+    }
+    if (auth) {
+        userObj.isLoggedIn = true
+        userObj.user = await getUserObj(req.session.user_id)
+    }
+
+    res.render('wheel', userObj)
+})
+
+
 module.exports = router
