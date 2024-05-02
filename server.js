@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(session(
     {
-        secret: 'test',
+        secret: process.env.SESSION_SECRET,
         store,
         resave: false,
         saveUninitialized: true,
@@ -59,7 +59,7 @@ app.use('/', routes)
 
 // Set interval for the repetitive task
 
-sequelize.sync({force: false})
+sequelize.sync({force: true})
 .then(()=>{
     app.listen(PORT,() => {
         console.log('Server running on port: ', PORT)
