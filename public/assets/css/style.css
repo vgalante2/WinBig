@@ -136,14 +136,23 @@ main section {
 
 .question-heading {
     font-family: var(--primary-font);
-    color: rgb(86, 156, 255);
+    color: rgb(101, 9, 186);
 }
 
-/* USER PAGE UPDATE */
+/* USER PAGE STYLES */
 
 #user-background { 
 	background: radial-gradient(circle, rgb(244, 131, 179) 0%, rgba(148,187,233,1) 100%);
-} 
+}
+
+.userpage-links {
+    text-decoration: none;
+    color:blue;
+}
+
+#techstack-header-title {
+    color: #ea97ff;
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
