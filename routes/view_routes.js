@@ -107,6 +107,19 @@ router.get('/user', async (req, res) => {
         userObj.isLoggedIn = true
         userObj.user = await getUserObj(req.session.user_id)
     }
+    const user = await User.findByPk(req.session.user_id)
+
+    const bets = await user.getUserBets()
+    console.log(bets)
+    // we are currently send userObj with id username and balance. we need below bet info
+    //  <td>{{this.id}}</td>
+    //  <td>{{this.event_id}}</td>
+    // <td>{{this.name}}</td>
+    // <td>{{this.odds}}</td>
+    // <td>{{this.amount}}</td>
+    // <td>{{this.payout}}</td>
+    // <td>{{this.net}}</td>
+    userObj.bets = bets
 
     res.render('user', userObj)
 })
