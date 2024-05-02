@@ -1,21 +1,24 @@
-	<link rel="stylesheet" href="/assets/css/coin-styles.css">
-		<main class="d-flex">
-        {{#if isLoggedIn}}
-            {{> loggedInSidebar coin}}
-        {{else}}
-            {{> loggedOutSidebar}}
-        {{/if}}
-		<section class="row justify-content-center">
-			<h2 class="text-center text-light pt-5 pb-5 h1">Place a Bet and Flip the Coin!</h2>
-		<div class="coin-container bg-dark p-5 mb-5"> 
-			<div class="coin" id="coin"> 
-				<img src="/assets/images/coin.gif" alt="Heads"
-				/> 
+<link rel="stylesheet" href="/assets/css/coin-styles.css">
+<main class="d-flex">
+	{{#if isLoggedIn}}
+	{{> loggedInSidebar coin}}
+	{{else}}
+	{{> loggedOutSidebar}}
+	{{/if}}
+	<section class="row justify-content-center">
+		<h2 class="text-center text-light pt-5 pb-5 h1">Place a Bet and Flip the Coin!</h2>
+		<div class="coin-container bg-dark p-5 mb-5">
+			<div class="coin" id="coin">
+				<img src="/assets/images/coin.gif" alt="Heads" />
 			</div>
+
+			{{#if isLoggedIn}}
 			{{>coincard coin}}
-		</div> 
+			{{else}}
+			{{> loggedOutCard}}
+			{{/if}}
+		</div>
 		<p class="result"></p>
 		<script src="/assets/js/coin-toss-script.js"></script>
-		</section>
-		</main>
-
+	</section>
+</main>
