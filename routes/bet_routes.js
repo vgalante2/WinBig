@@ -80,6 +80,9 @@ router.post('/bet', async (req, res) => {
         betRaw.user_id = id       
         const user = await User.findByPk(id)
         let event = await Event.findByPk(betRaw.event_id)
+        if(betRaw.amount>parseFloat(user.balance)){
+            betRaw.amount=parseFloat(user.balance)
+        }
         let newBal =parseFloat(user.balance)-betRaw.amount
         user.update({balance: newBal})
         const bet = await Bet.create(betRaw)

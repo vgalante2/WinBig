@@ -59,7 +59,7 @@ app.use('/', routes)
 
 // Set interval for the repetitive task
 
-sequelize.sync({force: true})
+sequelize.sync({force: false})
 .then(()=>{
     app.listen(PORT,() => {
         console.log('Server running on port: ', PORT)

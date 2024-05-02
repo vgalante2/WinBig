@@ -151,8 +151,9 @@ router.get('/coin-toss', async (req, res) => {
             choices: Object.keys(coin.odds),
             odds: coin.odds.heads
         }
+        res.render('coin-toss', userObj)
     }
-    res.render('coin-toss', userObj)
+    else {res.render('login', userObj)}
 })
 
 router.get('/dice', async (req, res) => {
@@ -186,8 +187,9 @@ router.get('/dice', async (req, res) => {
             choices: Object.keys(die.odds),
             odds: die.odds[1]
         }
+        res.render('dice', userObj)
     }
-    res.render('dice', userObj)
+    else {res.render('login', userObj)}
 })
 
 router.get('/free', async (req, res) => {

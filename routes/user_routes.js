@@ -80,11 +80,11 @@ router.post('/auth/login', async (req, res) => {
             const is_valid = await user.validatePass(input.password)
             if (is_valid) {
                 req.session.user_id = user.id
-                return res.redirect('/play')
+                return res.redirect(req.get('referer'))
             }
-            return res.redirect('/login')
+            return res.redirect(req.get('referer'))
         }
-        return res.redirect('/register')
+        return res.redirect(req.get('referer'))
 
     } catch (err) {
         handleError(err, res)
