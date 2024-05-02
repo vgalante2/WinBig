@@ -20,6 +20,11 @@
     
 }
 
+.free {
+    color: rgb(208, 151, 255);
+}
+
+
 .home-heading {
     font-family: var(--primary-font);
 }

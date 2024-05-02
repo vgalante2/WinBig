@@ -1,0 +1,20 @@
+<main class="d-flex">
+    {{#if isLoggedIn}}
+        {{> loggedInSidebar user}}
+    {{else}}
+        {{> loggedOutSidebar}}
+    {{/if}}
+    <section class="row w-100">
+        <div class="d-flex align-items-center justify-content-center flex-column">
+            <h1>Click for Free Coin, {{user.username}}</h1>
+            <button type="button" class="btn btn-primary btn-lg w-25" onclick="handleButtonClick()">Free</button>
+            <div id="guessContainer" style="display: none;">
+                <p>Guess a number between 0 and 5:</p>
+                <input type="number" id="guessInput" min="0" max="5">
+                <button type="button" onclick="checkGuess()">Submit</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="/assets/js/free.js"></script>

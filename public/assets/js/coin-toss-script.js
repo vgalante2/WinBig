@@ -5,7 +5,7 @@ const tossBtn =
 const result = 
 	document.querySelector('.result'); 
 coinIcon.insertAdjacentElement('afterend', result) 
-tossBtn.addEventListener('click', tossCoinFunction) 
+betForm.addEventListener('submit', tossCoinFunction) 
 async function tossCoinFunction(event) { 
 	event.preventDefault()
     // make new route to return event

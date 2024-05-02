@@ -224,5 +224,53 @@ router.get('/dice', async (req, res) => {
     res.render('dice', userObj)
 })
 
+router.get('/free', async (req, res) => {
+    const auth = isAuth(req, res);
+    if (auth) {
+        try {
+            const user = await getUserObj(req.session.user_id);
+            const userObj = {
+                isLoggedIn: true,
+                user: user 
+            };
+            console.log(userObj); // Log userObj to verify it contains the correct user information
+            res.render('free', userObj);
+        } catch (error) {
+            console.error('Error fetching user information:', error);
+            res.redirect('/');
+        }
+    } else {
+        res.redirect('/login');
+    }
+});
+
+router.post('/free', async (req, res) => {
+    const { guess, isCorrect } = req.body;
+
+    try {
+      
+        const user = await User.findByPk(req.session.user_id);
+
+        if (!user) {
+            
+            return res.status(404).json({ success: false, error: 'User not found' });
+        }
+
+        // Process the guess data here (e.g., update user's balance if guess is correct)
+        if (isCorrect) {
+            // Update user's balance
+            user.balance = parseInt(user.balance, 10);
+            user.balance += 50 // Increment the balance by 50 coins
+        }
+
+        await user.save();
+
+        
+        res.json(user.guess);
+    } catch (error) {
+        console.error('Error updating user balance:', error);
+        res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+});
 
 module.exports = router
