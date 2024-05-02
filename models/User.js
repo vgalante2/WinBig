@@ -12,31 +12,28 @@ class User extends Model {
     try {
       const user = await User.findByPk(this.id, {
         include: { model: Bet },
-      });
-      const bets = []
+      })
+      let bets = []
       if (!user.bets.length) {
         return bets
       }
-        user.bets.map(async (betObj) => {
-          const bet = await Bet.findByPk(betObj.id);
-         
+        user.bets.forEach((bet) => {
           let net = 'Pending'
           if (bet.resolved) {
-            const user = await User.findByPk(betObj.user_id);
             net = parseFloat(bet.payout)-parseFloat(bet.amount) 
             
           } 
           const betItem = {
             id: bet.id,
             event_id: bet.event_id,
-            name: bet.name,
+            name: bet.bet_name,
             odds: bet.odds,
             amount: bet.amount,
             payout: bet.payout,
             net: net
           } 
           bets.push(betItem)
-          
+
         }) 
         return bets
     } catch (err) {

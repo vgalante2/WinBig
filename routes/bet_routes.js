@@ -7,6 +7,12 @@ async function handleError(err, res) {
     console.log(err)
     return res.redirect('/play')
 }
+function isAuth(req, res) {
+    if (!req.session.user_id) {
+        return false
+    }
+    return true
+}
 function flip(){
     if(Math.floor(Math.random()*2)){
         return {outcome: 'heads'}
