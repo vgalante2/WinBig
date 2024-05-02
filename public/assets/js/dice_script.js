@@ -55,15 +55,12 @@ async function getEventResult(event) {
   rollDice(roll)
   const cardMax = document.getElementById("amount")
   const sideBalance = document.getElementById("side-balance")
-  let newBalance = parseFloat(cardMax.max) - parseFloat(amount)
-  let payout = +bet.payout
-  if (payout) {
-    newBalance = newBalance + payout
+  const user = await fetch(`api/users/${user_id}`)
+  .then(res=>res.json())
+  
 
-  }
-
-  cardMax.max = newBalance.toFixed(2)
-  sideBalance.innerText = newBalance.toFixed(2)
+  cardMax.max = parseFloat(user.balance).toFixed(2)
+  sideBalance.innerText = parseFloat(user.balance).toFixed(2)
   setTimeout(() => { 
 		
 		setTimeout(() => { 

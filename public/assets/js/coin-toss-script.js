@@ -46,6 +46,9 @@ const amount = document.getElementById("amount").value
       })
       .then(res=>res.json())
 
+      const user = await fetch(`api/users/${user_id}`)
+      .then(res=>res.json())
+
 	const faceCoin = bet.result == 'heads' ? 'Heads' : 'Tails'; 
 	const imageUrl = faceCoin === 'Heads' ? 
 '/assets/images/coin-heads.png' : 
@@ -64,12 +67,6 @@ const amount = document.getElementById("amount").value
 	}, 1000); 
 	const cardMax = document.getElementById("amount")
     const sideBalance = document.getElementById("side-balance")
-    let newBalance = parseFloat(cardMax.max)-parseFloat(amount)
-    let payout = +bet.payout
-    if(payout){
-      newBalance = newBalance + payout
-
-    }
-    cardMax.max = newBalance.toFixed(2)
-    sideBalance.innerText = newBalance.toFixed(2)
+    cardMax.max = parseFloat(user.balance).toFixed(2)
+    sideBalance.innerText = parseFloat(user.balance).toFixed(2)
 }
