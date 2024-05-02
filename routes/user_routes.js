@@ -2,10 +2,6 @@ const router = require('express').Router();
 const { hash, compare } = require('bcrypt')
 
 const { User, Event, Bet } = require('../models');
-// const Event = require('../models/Event');
-// const Bet = require('../models/Bet');
-
-// The `/api/users` endpoint
 
 async function handleError(err, res) {
     console.log(err)
