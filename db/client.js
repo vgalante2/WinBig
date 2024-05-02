@@ -4,12 +4,17 @@ const is_prod = process.env.NODE_ENV
 
 const client = is_prod ? new Sequelize(process.env.DATABASE_URL,
     {
-        ssl: {rejectUnauthourized: false}
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
     }) :
     new Sequelize(
-        'win_big_db',
-        'postgres',
-        'pass',
+        process.env.DB_NAME,
+        process.env.DB_USERNAME,
+        process.env.DB_PASSWORD,
         {
             host: 'localhost',
             dialect: 'postgres',

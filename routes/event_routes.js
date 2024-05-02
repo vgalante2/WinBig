@@ -22,6 +22,8 @@ router.get('/', async (req, res) => {
     }
 })
 
+
+
 router.get('/:id', async (req, res) => {
     try {
         let id = req.params.id
@@ -30,6 +32,34 @@ router.get('/:id', async (req, res) => {
                 include: { model: Bet },
             })
         return res.json(event)
+
+    }
+    catch (err) {
+        handleError(err,res)
+    }
+})
+
+
+router.get('/wheel', async (req, res) => {
+    try {
+        const outcome = Math.floor(Math.random() * 8) + 1
+        // const events = await Event.create({
+        //     event_name: 'wheelspin',
+        //     odds: {
+        //         1: 0.125,
+        //         2: 0.125,
+        //         3: 0.125,
+        //         4: 0.125,
+        //         5: 0.125,
+        //         6: 0.125,
+        //         7: 0.125,
+        //         8: 0.125
+        //     } 
+        // })
+
+        // const user = await User.findByPk(req.session.user_id)
+
+        return res.json({outcome: outcome})
 
     }
     catch (err) {

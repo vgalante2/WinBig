@@ -3,7 +3,11 @@
 function handleButtonClick() {
     // Show the guess container
     document.getElementById('guessContainer').style.display = 'block';
+
+    document.getElementById('free-btn').style.display = 'none';
 }
+
+
 
 function checkGuess() {
     // Get the user's guess
