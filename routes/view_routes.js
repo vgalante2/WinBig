@@ -13,12 +13,11 @@ async function getUserObj(id) {
     const userObj = {
         user_id: user.id,
         username: user.username,
-        balance: user.balance
+        balance: parseFloat(user.balance).toFixed(2).toString()
     }
 
     return userObj
 }
-
 
 
 router.get('/', async (req, res) => {
@@ -57,52 +56,6 @@ router.get('/play', async (req, res) => {
         userObj.isLoggedIn = true
         userObj.user = await getUserObj(req.session.user_id)
     }
-
-    // const auth = isAuth(req, res)
-    // let userObj = {
-    //     isLoggedIn: false
-    // }
-    // if (auth) {
-    //     const user = await User.findByPk(req.session.user_id)
-    //     const coin = await Event.create({
-    //         event_name: "coinflip",
-    //         odds: {
-    //             heads: 0.50,
-    //             tails: 0.50
-    //         }
-
-    //     })
-    //     const die = await Event.create({
-    //         event_name: "diceroll",
-    //         odds: {
-    //             1: 0.1666666,
-    //             2: 0.1666666,
-    //             3: 0.1666666,
-    //             4: 0.1666666,
-    //             5: 0.1666666,
-    //             6: 0.1666666,
-    //         }
-    //     })
-    //     userObj = {
-    //         isLoggedIn: true,
-    //         coin: {
-    //             username: user.username,
-    //             balance: user.balance,
-    //             event_id: coin.id,
-    //             choices: Object.keys(coin.odds),
-    //             odds: coin.odds.heads
-    //         },
-    //         die: {
-    //             username: user.username,
-    //             balance: user.balance,
-    //             event_id: die.id,
-    //             choices: Object.keys(die.odds),
-    //             odds: die.odds[1]
-    //         },
-
-    //     }
-
-    // }
     res.render('play', userObj)
 
 })
@@ -154,6 +107,19 @@ router.get('/user', async (req, res) => {
         userObj.isLoggedIn = true
         userObj.user = await getUserObj(req.session.user_id)
     }
+    const user = await User.findByPk(req.session.user_id)
+
+    const bets = await user.getUserBets()
+    console.log(bets)
+    // we are currently send userObj with id username and balance. we need below bet info
+    //  <td>{{this.id}}</td>
+    //  <td>{{this.event_id}}</td>
+    // <td>{{this.name}}</td>
+    // <td>{{this.odds}}</td>
+    // <td>{{this.amount}}</td>
+    // <td>{{this.payout}}</td>
+    // <td>{{this.net}}</td>
+    userObj.bets = bets
 
     res.render('user', userObj)
 })
@@ -181,12 +147,13 @@ router.get('/coin-toss', async (req, res) => {
             username: user.username,
             balance: user.balance,
             event_id: coin.id,
+            event_name: coin.event_name,
             choices: Object.keys(coin.odds),
             odds: coin.odds.heads
         }
+        res.render('coin-toss', userObj)
     }
-    console.log(userObj)
-    res.render('coin-toss', userObj)
+    else {res.render('login', userObj)}
 })
 
 router.get('/dice', async (req, res) => {
@@ -216,12 +183,13 @@ router.get('/dice', async (req, res) => {
             username: user.username,
             balance: user.balance,
             event_id: die.id,
+            event_name: die.event_name,
             choices: Object.keys(die.odds),
             odds: die.odds[1]
         }
+        res.render('dice', userObj)
     }
-    console.log(userObj)
-    res.render('dice', userObj)
+    else {res.render('login', userObj)}
 })
 
 router.get('/free', async (req, res) => {

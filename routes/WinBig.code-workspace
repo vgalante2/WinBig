@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../practice/new-server-practice"
+		},
+		{
+			"path": "../../../../practice/sequilize-practice"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "WinBig"
+	}
+}

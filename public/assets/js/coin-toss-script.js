@@ -8,6 +8,7 @@ coinIcon.insertAdjacentElement('afterend', result)
 betForm.addEventListener('submit', tossCoinFunction) 
 async function tossCoinFunction(event) { 
 	event.preventDefault()
+	tossBtn.disabled = true
     // make new route to return event
     const eventObj = {
       event_name: "coinflip",
@@ -35,7 +36,6 @@ const amount = document.getElementById("amount").value
       amount: amount,
       odds: 0.50
     }
-    console.log(betObj)
 
     const bet =  await fetch('api/bets/bet', {
         method: 'POST',
@@ -45,7 +45,9 @@ const amount = document.getElementById("amount").value
         body: JSON.stringify(betObj),
       })
       .then(res=>res.json())
-    console.log(bet)
+
+      const user = await fetch(`api/users/${user_id}`)
+      .then(res=>res.json())
 
 	const faceCoin = bet.result == 'heads' ? 'Heads' : 'Tails'; 
 	const imageUrl = faceCoin === 'Heads' ? 
@@ -65,14 +67,6 @@ const amount = document.getElementById("amount").value
 	}, 1000); 
 	const cardMax = document.getElementById("amount")
     const sideBalance = document.getElementById("side-balance")
-    let newBalance = parseFloat(cardMax.max)-parseFloat(amount)
-    let payout = +bet.payout
-    if(payout){
-      console.log(cardMax.max)
-      console.log(sideBalance.innerText)
-      newBalance = newBalance + payout
-
-    }
-    cardMax.max = newBalance
-    sideBalance.innerText = newBalance
+    cardMax.max = parseFloat(user.balance).toFixed(2)
+    sideBalance.innerText = parseFloat(user.balance).toFixed(2)
 }

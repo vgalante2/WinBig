@@ -7,7 +7,7 @@
                 <input type="hidden" name="event_name" value="coinflip">
                 {{#each choices}}
                 <div class="form-check form-check-inline mt-3 ms-1">
-                    <input class="form-check-input" type="radio" id="{{this}}" name="bet_name" value="{{this}}">
+                    <input class="form-check-input" type="radio" id="{{this}}" name="bet_name" value="{{this}}" required>
                     <label class="form-check-label text-light" for="{{this}}">{{this}}</label>
                 </div>
                 {{/each}}

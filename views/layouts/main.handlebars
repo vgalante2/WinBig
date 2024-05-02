@@ -4,7 +4,12 @@
 
 <body>
 
-  {{>navbar}}
+
+  {{#if isLoggedIn}}
+      {{> navbarLoggedIn user}}
+  {{else}}
+      {{> navbarLoggedOut}}
+  {{/if}}
  
   {{{ body }}}
 

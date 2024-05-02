@@ -95,7 +95,7 @@ router.put('/:id', async (req, res) => {
             }
             await bet.update({result, payout})
             if(!bet.resolved){
-                const user = await User.findByPk(betObj.user_id)
+                const user = await User.scope('withoutPassword').findByPk(betObj.user_id)
                 var newBal = parseFloat(user.balance)+parseFloat(bet.payout)
                 await user.update({balance: newBal})
 
