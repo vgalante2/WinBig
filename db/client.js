@@ -7,9 +7,9 @@ const client = is_prod ? new Sequelize(process.env.DATABASE_URL,
         ssl: {rejectUnauthourized: false}
     }) :
     new Sequelize(
-        'win_big_db',
-        'postgres',
-        'pass',
+        process.env.DB_NAME,
+        process.env.DB_USERNAME,
+        process.env.DB_PASSWORD,
         {
             host: 'localhost',
             dialect: 'postgres',
