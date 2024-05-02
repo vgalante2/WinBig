@@ -40,6 +40,7 @@ User.init(
     },
     {
         sequelize,
+        paranoid: true,
         hooks: {
             async beforeCreate(user) {
                 user.password = await hash(user.password, 10)

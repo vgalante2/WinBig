@@ -8,10 +8,9 @@
             <p class="balance-text h4 text-light px-5 pt-1">Credit Balance: <span id="side-balance" class="text-success">{{balance}}</p>
 
         </div>
-        {{!-- <div>
-            <form class="bet-form px-5">
-                <input class="bet-input row mt-3 ms-1 form-control" id="bet-input"  type="text" placeholder="Enter Bet Amount">
-                <button class="btn btn-success row mt-3 ms-1 form-control" id="bet-btn"  type="submit">Place Bet</button>
+        <div>
+            <form action="/api/users/auth/logout" method="GET" class="logout-form px-5">
+                <button class="btn btn-success row mt-3 ms-1 form-control" id="logout-btn"  type="submit">Log Out</button>
             </form>
-        </div> --}}
+        </div>
     </aside>
