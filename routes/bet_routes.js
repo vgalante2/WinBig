@@ -59,7 +59,7 @@ router.post('/makebet', async (req, res) => {
         let betRaw = req.body
         let id = req.session.user_id 
         betRaw.user_id = id       
-        const user = await User.findByPk(id)
+        const user = await User.scope('withoutPassword').findByPk(id)
         const event = await Event.findByPk(betRaw.event_id)
         let newBal =parseFloat(user.balance)-betRaw.amount
         user.update({balance: newBal})
@@ -78,7 +78,7 @@ router.post('/bet', async (req, res) => {
         let betRaw = req.body
         let id = req.session.user_id 
         betRaw.user_id = id       
-        const user = await User.findByPk(id)
+        const user = await User.scope('withoutPassword').findByPk(id)
         let event = await Event.findByPk(betRaw.event_id)
         if(betRaw.amount>parseFloat(user.balance)){
             betRaw.amount=parseFloat(user.balance)

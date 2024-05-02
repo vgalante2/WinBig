@@ -26,7 +26,7 @@ function roll(){
 
 router.get('/', async (req, res) => {
     try {
-        const users = await User.findAll(
+        const users = await User.scope('withoutPassword').findAll(
             {
                 include: { model: Bet },
             }
@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     let id = req.params.id
     try {
-        const user = await User.findByPk(id,
+        const user = await User.scope('withoutPassword').findByPk(id,
             {
                 include: { model: Bet },
             })
