@@ -1,22 +1,5 @@
 <main id="user-background">
   <h2 class="text-center pt-5">User Account Information</h2>
-  <section id="user-quote">
-    <div class="card">
-      <div class="card-header">
-        Motivational Quote
-      </div>
-      <div class="card-body">
-        <blockquote class="blockquote mb-0" id="quoteDisplay">
-          <p>Click the button below to generate a new motivational quote about
-            winning</p>
-          {{! <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> }}
-        </blockquote>
-        <div class="pt-3">
-          <button class="btn btn-success" onclick="newQuote()">Generate Quote</button>
-        </div>
-      </div>
-    </div>
-  </section>
   <section id="user-info-display">
     <div class="row">
       <div class="col-sm-6">
@@ -31,6 +14,19 @@
             <a href="#" class="btn btn-primary">Update Password</a>
             <a href="#" class="btn btn-danger">Delete Account</a>
           </div>
+        </div>
+        <div id="user-quote" class="card mt-3">
+            <div class="card-header">
+            Motivational Quote
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0" id="quoteDisplay">
+                <p>Need some motivation? Click the button below to get some sage perspective about winning.</p>
+                </blockquote>
+                <div class="pt-3">
+                    <button class="btn btn-success" onclick="newQuote()">Generate Quote</button>
+                </div>
+            </div>
         </div>
       </div>
       <div class="col-sm-6">
