@@ -76,7 +76,7 @@ router.post('/auth/login', async (req, res) => {
             const is_valid = await user.validatePass(input.password)
             if (is_valid) {
                 req.session.user_id = user.id
-                return res.redirect(req.get('referer'))
+                return res.redirect('/')
             }
             return res.redirect(req.get('referer'))
         }
