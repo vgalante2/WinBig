@@ -13,6 +13,7 @@ async function getUserObj(id) {
     const userObj = {
         user_id: user.id,
         username: user.username,
+        email: user.email,
         balance: parseFloat(user.balance).toFixed(2).toString()
     }
 
@@ -106,22 +107,14 @@ router.get('/user', async (req, res) => {
     if (auth) {
         userObj.isLoggedIn = true
         userObj.user = await getUserObj(req.session.user_id)
+        const user = await User.findByPk(req.session.user_id)
+        const bets = await user.getUserBets()
+    
+        userObj.bets = bets
+        res.render('user', userObj)
     }
-    const user = await User.findByPk(req.session.user_id)
+    else {res.render('login', userObj)}
 
-    const bets = await user.getUserBets()
-    console.log(bets)
-    // we are currently send userObj with id username and balance. we need below bet info
-    //  <td>{{this.id}}</td>
-    //  <td>{{this.event_id}}</td>
-    // <td>{{this.name}}</td>
-    // <td>{{this.odds}}</td>
-    // <td>{{this.amount}}</td>
-    // <td>{{this.payout}}</td>
-    // <td>{{this.net}}</td>
-    userObj.bets = bets
-
-    res.render('user', userObj)
 })
 
 router.get('/coin-toss', async (req, res) => {
@@ -207,9 +200,7 @@ router.get('/free', async (req, res) => {
             console.error('Error fetching user information:', error);
             res.redirect('/');
         }
-    } else {
-        res.redirect('/login');
-    }
+    } else {res.render('login', userObj)}
 });
 
 router.post('/free', async (req, res) => {
@@ -249,9 +240,10 @@ router.get('/wheel', async (req, res) => {
     if (auth) {
         userObj.isLoggedIn = true
         userObj.user = await getUserObj(req.session.user_id)
+        res.render('wheel', userObj)
     }
+    else {res.render('login', userObj)}
 
-    res.render('wheel', userObj)
 })
 
 

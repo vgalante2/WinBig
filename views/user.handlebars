@@ -8,9 +8,11 @@
             Account
           </div>
           <div class="card-body">
-            <h5 class="card-title">Username: {{username}}</h5>
+            <h5 class="card-title">Username: {{user.username}}</h5>
             <p class="card-text">Credit Balance:
-              <span class="text-success">{{balance}}</span></p>
+              <span class="text-success">{{user.balance}}</span></p>
+            <p class="card-text">Email:
+              <span class="text-success">{{user.email}}</span></p>
             <a href="#" class="btn btn-primary">Update Password</a>
             <a href="#" class="btn btn-danger">Delete Account</a>
           </div>
