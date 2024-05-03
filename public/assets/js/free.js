@@ -1,3 +1,4 @@
+const sideBalance = document.getElementById("side-balance")
 
 
 function handleButtonClick() {
@@ -8,16 +9,12 @@ function handleButtonClick() {
 }
 
 
-
 function checkGuess() {
     // Get the user's guess
     const guess = parseInt(document.getElementById('guessInput').value);
 
     // Generate a random number between 0 and 5
-    const randomNumber = Math.floor(Math.random() * 6);
-
-    // Check if the guess is correct
-    const isCorrect = guess === randomNumber;
+    
 
     // Send the guess data to the server
     fetch('/free', {
@@ -25,7 +22,7 @@ function checkGuess() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ guess, isCorrect })
+        body: JSON.stringify({ guess})
     })
     .then(response => {
         if (response.ok) {
@@ -39,6 +36,12 @@ function checkGuess() {
     .then(data => {
         // Handle the server's response if necessary
         console.log(data);
+        if (data.isCorrect) {
+            alert('Congratulations! You guessed the correct number and earned 50 coins.');
+        } else {
+            alert('Sorry, your guess was incorrect. Try again.');
+        }
+        sideBalance.innerText = parseFloat(data.balance).toFixed(2)
     })
     .catch(error => {
         // Handle any errors that occurred during the request
@@ -46,11 +49,7 @@ function checkGuess() {
     });
 
     // Display feedback to the user
-    if (isCorrect) {
-        alert('Congratulations! You guessed the correct number and earned 50 coins.');
-    } else {
-        alert('Sorry, your guess was incorrect. Try again.');
-    }
+    
 }
 
 

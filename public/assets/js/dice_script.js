@@ -56,18 +56,18 @@ async function getEventResult(event) {
   const cardMax = document.getElementById("amount")
   const sideBalance = document.getElementById("side-balance")
   const user = await fetch(`api/users/${user_id}`)
-  .then(res=>res.json())
-  
+    .then(res => res.json())
+console.log(user.balance)
 
   cardMax.max = parseFloat(user.balance).toFixed(2)
   sideBalance.innerText = parseFloat(user.balance).toFixed(2)
-  setTimeout(() => { 
-		
-		setTimeout(() => { 
-		 
-			tossBtn.disabled = false; 
-		}, 500); 
-	}, 1000); 
+  setTimeout(() => {
+
+    setTimeout(() => {
+
+      tossBtn.disabled = false;
+    }, 500);
+  }, 1000);
 
   // need to get updated balance and render to balance and for maxbet
 }

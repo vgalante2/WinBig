@@ -98,6 +98,7 @@ router.post('/bet', async (req, res) => {
         }
         await event.resolveBets(outcome)
         const resolved = await Bet.findByPk(bet.id)
+        console.log(resolved)
         return res.json(resolved)
 
     }
