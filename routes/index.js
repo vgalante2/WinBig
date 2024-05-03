@@ -7,7 +7,6 @@ async function attachUser(req, res, next) {
             attributes: ['id', 'username', 'email', 'balance']
         })
         req.user = user.get({plain:true})
-        req.user.balance = req.user.balance.toFixed(2)
         return next()
     }
     next()
