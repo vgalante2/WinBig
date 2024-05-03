@@ -1,9 +1,8 @@
 
         <aside class="sidebar-menu bg-dark">
             <div class="d-flex justify-content-center">
-                <h5 class="logged-out text-light pt-5 display-5">Login or Register:</h5>
+                <h5 class="logged-out mx-5 text-light pt-5 display-5">Login:</h5>
             </div>
-            {{!-- <hr / class="border-light"> --}}
             <div class="px-5 ms-1">
                 <form action="/api/users/auth/login" method="POST"class="register-form">
                     <input class="text-input row mt-3 form-control" name="username"   type="text" placeholder="Enter username">
@@ -11,6 +10,5 @@
                     <button class="btn btn-success row mt-3 form-control" id="search-btn"  type="submit">Login</button>
                 </form>
                 <a class="nav-link pt-3 text-info" id="sidebar-link" href="/register">New Users: Register Here</a>
-                {{!-- <a class="nav-link" href="/login">Returning Users: Login</a> --}}
             </div>
         </aside>
