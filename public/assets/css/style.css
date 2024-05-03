@@ -1,14 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
-/* VARS */
+/* RESETS */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
 
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column
+}
+
+/* GLOBAL */
 :root {
     --primary-font: "Jersey 15", sans-serif;
 }
-
-/* .carousel-control-prev {
-    height: 20% !important;
-} */
 
 .logged-out {
     font-family: var(--primary-font);
@@ -40,24 +52,6 @@ span {
 .balance-text {
     font-family: var(--primary-font);
 }
-
-/* RESETS */
-* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
-
-html, body {
-    height: 100%;
-    width: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column
-}
-
 
 /* CUSTOM STYLES */
 .navbar-brand {
@@ -93,19 +87,23 @@ main section {
     width: 75%;
 }
 
-
 .coin-img {
     max-height: 200px;
    width: auto;
 }
+
 .dice-img {
     max-height: 200px;
     width: auto;
-   
 }
+
+.wheel-img {
+    max-height: 200px;
+    width: auto;
+}
+
 .heading {
     font-family: var(--primary-font);
-    
 }
 
 .user {
@@ -134,13 +132,20 @@ main section {
     transform: scale(1.1);
 }
 
+#wheel {
+    transition: transform 0.3s ease;
+}
+
+#wheel:hover {
+    transform: scale(1.1);
+}
+
 .question-heading {
     font-family: var(--primary-font);
     color: rgb(101, 9, 186);
 }
 
 /* USER PAGE STYLES */
-
 #user-background { 
 	background: radial-gradient(circle, rgb(244, 131, 179) 0%, rgba(148,187,233,1) 100%);
 }
@@ -156,14 +161,6 @@ main section {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-
-    /* .sidebar-menu {
-        width: 35%;
-    }
-
-    #main-content {
-        width: 65%;
-    } */
 
     .sidebar-menu {
         visibility: hidden;
