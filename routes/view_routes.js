@@ -160,13 +160,13 @@ router.post('/free', isAuth, async (req, res) => {
      });
 });
 
-router.get('/wheel', isAuth, async (req, res) => {
-    let userObj = {
-        isLoggedIn: req.user ? true : false,
-        user: req.user
-    }
-    res.render('wheel', userObj)
-})
+// router.get('/wheel', isAuth, async (req, res) => {
+//     let userObj = {
+//         isLoggedIn: req.user ? true : false,
+//         user: req.user
+//     }
+//     res.render('wheel', userObj)
+// })
 router.get('/updateuser', isAuth, async (req, res) => {
     let userObj = {
         isLoggedIn: req.user ? true : false,
@@ -185,6 +185,17 @@ router.get('/deleteuser', isAuth, async (req, res) => {
     
 
 })
+router.get('/*', async (req, res) => {
+    let userObj = {
+        isLoggedIn: req.user ? true : false,
+        user: req.user
+    }
+
+        res.render('home', userObj)
+    
+
+})
+
 
 
 module.exports = router
