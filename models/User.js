@@ -73,8 +73,8 @@ User.init(
       allowNull: false,
     },
     balance: {
-      type: DataTypes.DECIMAL,
-      defaultValue: 1000.0,
+      type: DataTypes.DECIMAL(10,2),
+      defaultValue: 1000.00,
     },
   },
   {

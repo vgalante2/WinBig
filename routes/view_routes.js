@@ -2,278 +2,187 @@ const router = require('express').Router()
 
 const { User, Event, Bet } = require('../models')
 
-function isAuth(req, res) {
+function isAuth(req, res, next) {
     if (!req.session.user_id) {
-        return false
+        return res.redirect('/login')
     }
-    return true
-}
-async function getUserObj(id) {
-    const user = await User.findByPk(id)
-    let userObj = {}
-    if (user){
-
-        userObj = {
-            user_id: user.id,
-            username: user.username,
-            email: user.email,
-            balance: parseFloat(user.balance).toFixed(2).toString()
-        }
-    }
-
-
-    return userObj
+    return next()
 }
 
 
 router.get('/', async (req, res) => {
 
-    const auth = isAuth(req, res)
     let userObj = {
-        isLoggedIn: false
-    }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
 
     res.render('home', userObj)
 })
 
 router.get('/about', async (req, res) => {
-    const auth = isAuth(req, res)
     let userObj = {
-        isLoggedIn: false
-    }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
 
     res.render('about', userObj)
 })
 
-router.get('/play', async (req, res) => {
-    const auth = isAuth(req, res)
+router.get('/play', isAuth, async (req, res) => {
     let userObj = {
-        isLoggedIn: false
-    }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+        isLoggedIn: true,
+        user: req.user
     }
     res.render('play', userObj)
 
 })
 
 router.get('/register', async (req, res) => {
-    const auth = isAuth(req, res)
     let userObj = {
-        isLoggedIn: false
-    }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
 
     res.render('register', userObj)
 })
 
 router.get('/login', async (req, res) => {
-    const auth = isAuth(req, res)
     let userObj = {
-        isLoggedIn: false
-    }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
     res.render('login', userObj)
 })
 
 router.get('/logout', async (req, res) => {
-    const auth = isAuth(req, res)
     let userObj = {
-        isLoggedIn: false
-    }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
 
     res.render('logout', userObj)
 })
 
-router.get('/user', async (req, res) => {
-    const auth = isAuth(req, res)
+router.get('/user', isAuth, async (req, res) => {
     let userObj = {
-        isLoggedIn: false
+        isLoggedIn: true,
+        user: req.user
     }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
-        const user = await User.findByPk(req.session.user_id)
-        const bets = await user.getUserBets(6)
-    
-        userObj.bets = bets
-        res.render('user', userObj)
+    const user = await User.findByPk(req.user.id)
+    const bets = await user.getUserBets(6)
+
+    userObj.bets = bets
+    res.render('user', userObj)
+})
+
+router.get('/coin-toss', isAuth, async (req, res) => {
+    let userObj = {
+        isLoggedIn: true,
+        user: req.user
     }
-    else {res.render('login', userObj)}
+    const coin = await Event.create({
+        event_name: "coinflip",
+        odds: {
+            heads: 0.50,
+            tails: 0.50
+        }
+    })
+
+    userObj.coin = {
+        user_id: req.user.id,
+        username: req.user.username,
+        balance: req.user.balance,
+        event_id: coin.id,
+        event_name: coin.event_name,
+        choices: Object.keys(coin.odds),
+        odds: coin.odds.heads
+    }
+    res.render('coin-toss', userObj)
 
 })
 
-router.get('/coin-toss', async (req, res) => {
-    const auth = isAuth(req, res)
+router.get('/dice', isAuth, async (req, res) => {
     let userObj = {
-        isLoggedIn: false
+        isLoggedIn: true,
+        user: req.user
     }
-    if (auth) {
-        userObj.isLoggedIn = true
-        const user = await getUserObj(req.session.user_id)
-        userObj.user = user
 
-        const coin = await Event.create({
-            event_name: "coinflip",
-            odds: {
-                heads: 0.50,
-                tails: 0.50
-            }
-        })
-
-        userObj.coin = {
-            user_id: user.user_id,
-            username: user.username,
-            balance: user.balance,
-            event_id: coin.id,
-            event_name: coin.event_name,
-            choices: Object.keys(coin.odds),
-            odds: coin.odds.heads
+    const die = await Event.create({
+        event_name: "diceroll",
+        odds: {
+            1: 0.1666666,
+            2: 0.1666666,
+            3: 0.1666666,
+            4: 0.1666666,
+            5: 0.1666666,
+            6: 0.1666666,
         }
-        res.render('coin-toss', userObj)
+    })
+
+    userObj.die = {
+        user_id: req.user.id,
+        username: req.user.username,
+        balance: req.user.balance,
+        event_id: die.id,
+        event_name: die.event_name,
+        choices: Object.keys(die.odds),
+        odds: die.odds[1]
     }
-    else {res.render('login', userObj)}
+    res.render('dice', userObj)
 })
 
-router.get('/dice', async (req, res) => {
-    const auth = isAuth(req, res)
+router.get('/free', isAuth, async (req, res) => {
     let userObj = {
-        isLoggedIn: false
+        isLoggedIn: true,
+        user: req.user
     }
-    if (auth) {
-        userObj.isLoggedIn = true
-        const user = await getUserObj(req.session.user_id)
-        userObj.user = user
-
-        const die = await Event.create({
-            event_name: "diceroll",
-            odds: {
-                1: 0.1666666,
-                2: 0.1666666,
-                3: 0.1666666,
-                4: 0.1666666,
-                5: 0.1666666,
-                6: 0.1666666,
-            }
-        })
-
-        userObj.die = {
-            user_id: user.user_id,
-            username: user.username,
-            balance: user.balance,
-            event_id: die.id,
-            event_name: die.event_name,
-            choices: Object.keys(die.odds),
-            odds: die.odds[1]
-        }
-        res.render('dice', userObj)
-    }
-    else {res.render('login', userObj)}
-})
-
-router.get('/free', async (req, res) => {
-    const auth = isAuth(req, res);
-    if (auth) {
-        try {
-            const user = await getUserObj(req.session.user_id);
-            const userObj = {
-                isLoggedIn: true,
-                user: user 
-            };
-            console.log(userObj); // Log userObj to verify it contains the correct user information
-            res.render('free', userObj);
-        } catch (error) {
-            console.error('Error fetching user information:', error);
-            res.redirect('/');
-        }
-    } else {res.render('login', userObj)}
+    res.render('free', userObj);
 });
 
-router.post('/free', async (req, res) => {
-    const { guess, isCorrect } = req.body;
+router.post('/free', isAuth, async (req, res) => {
+    const { guess } = req.body;
+    const user = await User.findByPk(req.user.id)
+    const randomNumber = Math.floor(Math.random() * 5) + 1;
 
-    try {
-      
-        const user = await User.findByPk(req.session.user_id);
-
-        if (!user) {
-            
-            return res.status(404).json({ success: false, error: 'User not found' });
-        }
-
-        // Process the guess data here (e.g., update user's balance if guess is correct)
-        if (isCorrect) {
-            // Update user's balance
-            user.balance = parseInt(user.balance, 10);
-            user.balance += 50 // Increment the balance by 50 coins
-        }
-
-        await user.save();
-
-        
-        res.json(user.guess);
-    } catch (error) {
-        console.error('Error updating user balance:', error);
-        res.status(500).json({ success: false, error: 'Internal server error' });
+    // Check if the guess is correct
+    const isCorrect = guess === randomNumber;
+    // Process the guess data here (e.g., update user's balance if guess is correct)
+    if (isCorrect) {
+        // Update user's balance
+        user.balance = parseInt(user.balance, 10);
+        user.balance += 50 // Increment the balance by 50 coins
     }
+
+    await user.save();
+    res.json({ balance: user.balance,
+        isCorrect
+     });
 });
 
-router.get('/wheel', async (req, res) => {
-    const auth = isAuth(req, res)
+router.get('/wheel', isAuth, async (req, res) => {
     let userObj = {
-        isLoggedIn: false
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
-        res.render('wheel', userObj)
-    }
-    else {res.render('login', userObj)}
-
+    res.render('wheel', userObj)
 })
-router.get('/updateuser', async (req, res) => {
-    const auth = isAuth(req, res)
+router.get('/updateuser', isAuth, async (req, res) => {
     let userObj = {
-        isLoggedIn: false
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
-        res.render('updateuser', userObj)
-    }
-    else {res.render('login', userObj)}
 
+    res.render('updateuser', userObj)
 })
-router.get('/deleteuser', async (req, res) => {
-    const auth = isAuth(req, res)
+router.get('/deleteuser', isAuth, async (req, res) => {
     let userObj = {
-        isLoggedIn: false
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
-    if (auth) {
-        userObj.isLoggedIn = true
-        userObj.user = await getUserObj(req.session.user_id)
+
         res.render('deleteuser', userObj)
-    }
-    else {res.render('login', userObj)}
+    
 
 })
 

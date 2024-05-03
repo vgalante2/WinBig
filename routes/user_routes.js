@@ -127,6 +127,7 @@ router.post('/auth/delete', async (req, res) => {
             const is_valid = await user.validatePass(input.password)
             if (is_valid) {
                 await user.destroy()
+                req.session.destroy()
                 return res.redirect('/')
             }
             return res.redirect(req.get('referer'))
