@@ -8,10 +8,14 @@ class User extends Model {
     const is_valid = await compare(formPassword, this.password);
     return is_valid;
   }
-  async getUserBets() {
+  async getUserBets(num) {
     try {
       const user = await User.findByPk(this.id, {
-        include: { model: Bet },
+        include: [{
+          model: Bet,
+          order: [['createdAt', 'DESC']], 
+          limit: num
+        }]
       })
       let bets = []
       if (!user.bets.length) {
@@ -20,7 +24,7 @@ class User extends Model {
         user.bets.forEach((bet) => {
           let net = 'Pending'
           if (bet.resolved) {
-            net = parseFloat(bet.payout)-parseFloat(bet.amount) 
+            net = parseFloat(bet.payout).toFixed(2)-parseFloat(bet.amount).toFixed(2) 
             
           } 
           const betItem = {
@@ -28,8 +32,8 @@ class User extends Model {
             event_id: bet.event_id,
             name: bet.bet_name,
             odds: bet.odds,
-            amount: bet.amount,
-            payout: bet.payout,
+            amount: parseFloat(bet.amount).toFixed(2),
+            payout: parseFloat(bet.payout).toFixed(2),
             net: net
           } 
           bets.push(betItem)

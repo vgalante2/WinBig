@@ -10,12 +10,17 @@ function isAuth(req, res) {
 }
 async function getUserObj(id) {
     const user = await User.findByPk(id)
-    const userObj = {
-        user_id: user.id,
-        username: user.username,
-        email: user.email,
-        balance: parseFloat(user.balance).toFixed(2).toString()
+    let userObj = {}
+    if (user){
+
+        userObj = {
+            user_id: user.id,
+            username: user.username,
+            email: user.email,
+            balance: parseFloat(user.balance).toFixed(2).toString()
+        }
     }
+
 
     return userObj
 }
@@ -108,7 +113,7 @@ router.get('/user', async (req, res) => {
         userObj.isLoggedIn = true
         userObj.user = await getUserObj(req.session.user_id)
         const user = await User.findByPk(req.session.user_id)
-        const bets = await user.getUserBets()
+        const bets = await user.getUserBets(6)
     
         userObj.bets = bets
         res.render('user', userObj)
@@ -241,6 +246,32 @@ router.get('/wheel', async (req, res) => {
         userObj.isLoggedIn = true
         userObj.user = await getUserObj(req.session.user_id)
         res.render('wheel', userObj)
+    }
+    else {res.render('login', userObj)}
+
+})
+router.get('/updateuser', async (req, res) => {
+    const auth = isAuth(req, res)
+    let userObj = {
+        isLoggedIn: false
+    }
+    if (auth) {
+        userObj.isLoggedIn = true
+        userObj.user = await getUserObj(req.session.user_id)
+        res.render('updateuser', userObj)
+    }
+    else {res.render('login', userObj)}
+
+})
+router.get('/deleteuser', async (req, res) => {
+    const auth = isAuth(req, res)
+    let userObj = {
+        isLoggedIn: false
+    }
+    if (auth) {
+        userObj.isLoggedIn = true
+        userObj.user = await getUserObj(req.session.user_id)
+        res.render('deleteuser', userObj)
     }
     else {res.render('login', userObj)}
 

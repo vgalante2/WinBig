@@ -97,7 +97,7 @@ router.get('/auth/logout', async (req, res) => {
     }
 })
 
-router.put('/auth/update', async (req, res) => {
+router.post('/auth/update', async (req, res) => {
     try {
         let update = req.body
         let id = req.session.user_id
@@ -106,23 +106,32 @@ router.put('/auth/update', async (req, res) => {
         }
         const user = await User.findByPk(id)
         user.update(update)
-        return res.json(user)
+        return res.redirect('/user')
 
     } catch (err) {
         handleError(err, res)
     }
 })
 
-router.delete('/auth/delete', async (req, res) => {
-    let id = req.session.user_id
+router.post('/auth/delete', async (req, res) => {
     try {
-        const user = await User.findByPk(id)
-        await user.destroy()
-
-        return res.json({
-            message: `User with ID ${id} removed from Database`
+        let input = req.body
+        console.log(input)
+        const user = await User.findOne({
+            where: {
+                username: input.username,
+            }
         })
-
+        if (user) {
+            console.log(input.password)
+            const is_valid = await user.validatePass(input.password)
+            if (is_valid) {
+                await user.destroy()
+                return res.redirect('/')
+            }
+            return res.redirect(req.get('referer'))
+        }
+        return res.redirect(req.get('referer'))
     }
     catch (err) {
         handleError(err, res)

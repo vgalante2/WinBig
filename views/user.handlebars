@@ -13,8 +13,8 @@
               <span class="text-success">{{user.balance}}</span></p>
             <p class="card-text">Email:
               <span class="text-success">{{user.email}}</span></p>
-            <a href="#" class="btn btn-primary">Update Password</a>
-            <a href="#" class="btn btn-danger">Delete Account</a>
+            <a href="/updateuser" class="btn btn-primary">Update Account Information</a>
+            <a href="/deleteuser" class="btn btn-danger">Delete Account</a>
           </div>
         </div>
         <div id="user-quote" class="card mt-3">
@@ -37,7 +37,7 @@
             Bets & Gaming
           </div>
           <div class="card-body">
-            <h5 class="card-title">Recent Bet History: {{username}}</h5>
+            <h5 class="card-title">Recent Bet History for: {{user.username}}</h5>
 
             <table class="table table-dark">
               <thead>
@@ -64,8 +64,6 @@
               </tbody>
             </table>
             
-            <p class="card-text">With supporting text below as a natural lead-in
-              to additional content.</p>
             <a href="/play" class="btn btn-success">Play More Games</a>
           </div>
         </div>
